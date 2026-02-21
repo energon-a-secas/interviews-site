@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(brew install:*)",
+      "Bash(pdftotext:*)",
+      "Bash(ls:*)",
+      "Bash(node -e:*)",
+      "Bash(open calculator.html)",
+      "Bash(open:*)",
+      "Bash(python3:*)"
+    ]
+  }
+}

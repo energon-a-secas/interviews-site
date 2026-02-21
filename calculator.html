@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JIRA Story Points Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #040714;
+            min-height: 100vh;
+            color: #f9f9f9;
+        }
+
+        /* Header Bar */
+        .header-bar {
+            background: rgba(4, 7, 20, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-logo h1 {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #f9f9f9;
+            letter-spacing: 0.5px;
+        }
+
+        .header-subtitle {
+            font-size: 0.85em;
+            color: #cacaca;
+            font-weight: 400;
+        }
+
+        nav {
+            display: flex;
+            gap: 5px;
+        }
+
+        nav a {
+            color: #f9f9f9;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        nav a.active {
+            background: #0063e5;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px;
+            gap: 30px;
+        }
+
+        .content-area {
+            flex: 1;
+            max-width: 900px;
+        }
+
+        /* Sticky Points Display */
+        .points-sidebar {
+            position: sticky;
+            top: 100px;
+            width: 280px;
+            height: fit-content;
+        }
+
+        .points-card {
+            background: linear-gradient(135deg, #0063e5 0%, #0080ff 100%);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 99, 229, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.6s ease, box-shadow 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Weather backgrounds */
+        .points-card.weather-clear-sky {
+            background: linear-gradient(135deg, #A8E6FF 0%, #56CCF2 100%);
+            box-shadow: 0 8px 32px rgba(168, 230, 255, 0.4);
+        }
+
+        .points-card.weather-sunny {
+            background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
+            box-shadow: 0 8px 32px rgba(86, 204, 242, 0.4);
+        }
+
+        .points-card.weather-clear {
+            background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+            box-shadow: 0 8px 32px rgba(74, 144, 226, 0.4);
+        }
+
+        .points-card.weather-cloudy {
+            background: linear-gradient(135deg, #6B7C93 0%, #4A5568 100%);
+            box-shadow: 0 8px 32px rgba(107, 124, 147, 0.4);
+        }
+
+        .points-card.weather-stormy {
+            background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);
+            box-shadow: 0 8px 32px rgba(74, 85, 104, 0.5);
+        }
+
+        .points-card.weather-extreme {
+            background: linear-gradient(135deg, #E53E3E 0%, #C53030 100%);
+            box-shadow: 0 8px 32px rgba(229, 62, 62, 0.6);
+        }
+
+        /* Weather icon overlay */
+        .points-card::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 150px;
+            height: 150px;
+            opacity: 0.15;
+            font-size: 100px;
+            transition: opacity 0.6s ease;
+        }
+
+        .points-card.weather-clear-sky::before {
+            content: '☀️';
+        }
+
+        .points-card.weather-sunny::before {
+            content: '☀️';
+        }
+
+        .points-card.weather-clear::before {
+            content: '🌤️';
+        }
+
+        .points-card.weather-cloudy::before {
+            content: '☁️';
+        }
+
+        .points-card.weather-stormy::before {
+            content: '⛈️';
+        }
+
+        .points-card.weather-extreme::before {
+            content: '🌪️';
+        }
+
+        .points-label {
+            font-size: 0.95em;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .points-value {
+            font-size: 5.5em;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .points-breakdown {
+            font-size: 0.9em;
+            opacity: 0.85;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .points-breakdown div {
+            margin: 8px 0;
+        }
+
+        .warning-banner {
+            background: linear-gradient(135deg, #ff8c00 0%, #ff6b00 100%);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 0.9em;
+            line-height: 1.5;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 16px rgba(255, 140, 0, 0.3);
+        }
+
+        .warning-banner strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1.05em;
+        }
+
+        .reset-button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .reset-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .reset-button:active {
+            transform: translateY(0);
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            margin-bottom: 25px;
+            color: #f9f9f9;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .control-group {
+            margin-bottom: 30px;
+        }
+
+        /* Add extra space for hover tooltips in Initial Estimation */
+        .card:first-of-type .control-group {
+            padding-bottom: 25px;
+        }
+
+        .control-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1em;
+            color: #f9f9f9;
+        }
+
+        .control-description {
+            font-size: 0.875em;
+            color: #cacaca;
+            margin-bottom: 12px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            flex: 1;
+            min-width: 90px;
+            position: relative;
+        }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-option label {
+            display: block;
+            padding: 14px 10px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            font-size: 0.95em;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            background: #0063e5;
+            color: white;
+            border-color: #0063e5;
+            box-shadow: 0 4px 16px rgba(0, 99, 229, 0.4);
+        }
+
+        .radio-option label:hover {
+            border-color: #0063e5;
+            background: rgba(0, 99, 229, 0.1);
+        }
+
+        /* Hover description for base estimation */
+        .radio-option[data-description]::after {
+            content: attr(data-description);
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgba(0, 99, 229, 0.95);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 10;
+            box-shadow: 0 4px 16px rgba(0, 99, 229, 0.3);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .radio-option[data-description]:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column-reverse;
+            }
+
+            .points-sidebar {
+                position: relative;
+                top: 0;
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .content-area {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <div class="header-logo">
+            <div>
+                <h1>JIRA Story Points Calculator</h1>
+                <div class="header-subtitle">Disney Entertainment & ESPN Technology</div>
+            </div>
+        </div>
+        <nav>
+            <a href="calculator.html" class="active">Calculator</a>
+            <a href="adjuster.html">Adjuster</a>
+        </nav>
+    </div>
+
+    <div class="main-container">
+        <div class="content-area">
+
+        <div class="card">
+            <h2 class="section-title">Initial Estimation</h2>
+            <div class="control-group">
+                <label class="control-label">Base Engineering Hours</label>
+                <p class="control-description">Select the estimated engineering time required</p>
+                <div class="radio-group">
+                    <div class="radio-option" data-description="Minimal">
+                        <input type="radio" id="base1" name="base" value="1">
+                        <label for="base1">1 pt<br><small>2-3 hrs</small></label>
+                    </div>
+                    <div class="radio-option" data-description="Minor">
+                        <input type="radio" id="base2" name="base" value="2" checked>
+                        <label for="base2">2 pts<br><small>1 day</small></label>
+                    </div>
+                    <div class="radio-option" data-description="Moderate">
+                        <input type="radio" id="base3" name="base" value="3">
+                        <label for="base3">3 pts<br><small>2 days</small></label>
+                    </div>
+                    <div class="radio-option" data-description="Substantial">
+                        <input type="radio" id="base5" name="base" value="5">
+                        <label for="base5">5 pts<br><small>3-4 days</small></label>
+                    </div>
+                    <div class="radio-option" data-description="Extreme">
+                        <input type="radio" id="base8" name="base" value="8">
+                        <label for="base8">8 pts<br><small>5-7 days</small></label>
+                    </div>
+                    <div class="radio-option" data-description="Help me please!">
+                        <input type="radio" id="base13" name="base" value="13">
+                        <label for="base13">13 pts<br><small>>7 days</small></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">Story Modifiers</h2>
+
+            <div class="control-group">
+                <label class="control-label">Dependencies</label>
+                <p class="control-description">External dependencies and coordination needs</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="dep-none" name="dependencies" value="0" checked>
+                        <label for="dep-none">None</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="dep-few" name="dependencies" value="1">
+                        <label for="dep-few">Few</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="dep-many" name="dependencies" value="2">
+                        <label for="dep-many">Many</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Knowledge</label>
+                <p class="control-description">Team's familiarity with the technology</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="know-expert" name="knowledge" value="0" checked>
+                        <label for="know-expert">High</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="know-familiar" name="knowledge" value="1">
+                        <label for="know-familiar">Some</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="know-novice" name="knowledge" value="2">
+                        <label for="know-novice">Low</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Repetition</label>
+                <p class="control-description">How often this type of work is done</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="rep-routine" name="repetition" value="0" checked>
+                        <label for="rep-routine">Often</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="rep-occasional" name="repetition" value="1">
+                        <label for="rep-occasional">Sometimes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="rep-first" name="repetition" value="2">
+                        <label for="rep-first">Never</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Complexity</label>
+                <p class="control-description">Technical complexity of the work</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="comp-easy" name="complexity" value="0" checked>
+                        <label for="comp-easy">Easy</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="comp-medium" name="complexity" value="1">
+                        <label for="comp-medium">Medium</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="comp-hard" name="complexity" value="2">
+                        <label for="comp-hard">Hard</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Risk</label>
+                <p class="control-description">Overall risk and uncertainty</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="risk-low" name="risk" value="0" checked>
+                        <label for="risk-low">Low</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="risk-medium" name="risk" value="1">
+                        <label for="risk-medium">Medium</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="risk-high" name="risk" value="2">
+                        <label for="risk-high">High</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Calendar Spread</label>
+                <p class="control-description">How work is distributed across time</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="dur-minutes" name="duration" value="0" checked>
+                        <label for="dur-minutes">Continuous</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="dur-hours" name="duration" value="1">
+                        <label for="dur-hours">Split</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="dur-days" name="duration" value="2">
+                        <label for="dur-days">Fragmented</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">Team Adjustments (Optional)</h2>
+            <p class="control-description" style="margin-bottom: 20px; color: #cacaca;">
+                Use these only if you suspect team-specific factors beyond the scope above
+            </p>
+
+            <div class="control-group">
+                <label class="control-label">Tech Stack Expertise</label>
+                <p class="control-description">Adjust based on team's deep expertise or gaps</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="expertise-plus" name="expertise" value="-1">
+                        <label for="expertise-plus">Strong<br><small>-1 level</small></label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="expertise-neutral" name="expertise" value="0" checked>
+                        <label for="expertise-neutral">Neutral<br><small>No change</small></label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="expertise-minus" name="expertise" value="1">
+                        <label for="expertise-minus">Weak<br><small>+1 level</small></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Domain Context</label>
+                <p class="control-description">Adjust based on team's domain/business knowledge</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="context-plus" name="context" value="-1">
+                        <label for="context-plus">Strong<br><small>-1 level</small></label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="context-neutral" name="context" value="0" checked>
+                        <label for="context-neutral">Neutral<br><small>No change</small></label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="context-minus" name="context" value="1">
+                        <label for="context-minus">Weak<br><small>+1 level</small></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+        <div class="points-sidebar">
+            <div class="points-card">
+                <div class="points-label">Story Points</div>
+                <div class="points-value" id="final-points">2</div>
+                <div class="points-breakdown">
+                    <div>Base: <span id="breakdown-base">2</span> pts</div>
+                    <div>Modifiers: +<span id="breakdown-modifiers">0</span></div>
+                </div>
+                <div id="warning-container"></div>
+                <button class="reset-button" onclick="resetCalculator()">Reset to Defaults</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const STORY_POINTS = [1, 2, 3, 5, 8, 13];
+
+        function getBasePoints() {
+            const selected = document.querySelector('input[name="base"]:checked');
+            return parseInt(selected.value);
+        }
+
+        function getDependencies() {
+            const selected = document.querySelector('input[name="dependencies"]:checked');
+            return parseInt(selected.value);
+        }
+
+        function getKnowledge() {
+            const selected = document.querySelector('input[name="knowledge"]:checked');
+            return parseInt(selected.value);
+        }
+
+        function getRepetition() {
+            const selected = document.querySelector('input[name="repetition"]:checked');
+            return parseInt(selected.value);
+        }
+
+        function getComplexity() {
+            const selected = document.querySelector('input[name="complexity"]:checked');
+            return parseInt(selected.value);
+        }
+
+        function getRisk() {
+            const selected = document.querySelector('input[name="risk"]:checked');
+            return parseInt(selected.value);
+        }
+
+        function getDuration() {
+            const selected = document.querySelector('input[name="duration"]:checked');
+            return parseInt(selected.value);
+        }
+
+        function getExpertise() {
+            const selected = document.querySelector('input[name="expertise"]:checked');
+            return parseInt(selected.value);
+        }
+
+        function getContext() {
+            const selected = document.querySelector('input[name="context"]:checked');
+            return parseInt(selected.value);
+        }
+
+        function calculate() {
+            const basePoints = getBasePoints();
+            const dependencies = getDependencies();
+            const knowledge = getKnowledge();
+            const repetition = getRepetition();
+            const complexity = getComplexity();
+            const risk = getRisk();
+            const duration = getDuration();
+
+            // Sum all modifiers (additive)
+            const modifiers = dependencies + knowledge + repetition + complexity + risk + duration;
+
+            // Calculate total points with modifiers
+            const totalPoints = basePoints + modifiers;
+
+            // Find the closest story point value
+            let currentIndex = STORY_POINTS.findIndex(p => p >= totalPoints);
+            if (currentIndex === -1) currentIndex = STORY_POINTS.length - 1;
+
+            // Apply team adjustments (shift index up or down)
+            const expertise = getExpertise();
+            const context = getContext();
+            const teamAdjustment = expertise + context;
+
+            let finalIndex = currentIndex + teamAdjustment;
+            finalIndex = Math.max(0, Math.min(STORY_POINTS.length - 1, finalIndex));
+
+            const finalPoints = STORY_POINTS[finalIndex];
+
+            // Update display
+            document.getElementById('final-points').textContent = finalPoints;
+            document.getElementById('breakdown-base').textContent = basePoints;
+            document.getElementById('breakdown-modifiers').textContent = modifiers;
+
+            // Update weather background based on points
+            const pointsCard = document.querySelector('.points-card');
+            pointsCard.classList.remove('weather-clear-sky', 'weather-sunny', 'weather-clear', 'weather-cloudy', 'weather-stormy', 'weather-extreme');
+
+            if (finalPoints === 1) {
+                pointsCard.classList.add('weather-clear-sky');
+            } else if (finalPoints === 2) {
+                pointsCard.classList.add('weather-sunny');
+            } else if (finalPoints === 3) {
+                pointsCard.classList.add('weather-clear');
+            } else if (finalPoints === 5) {
+                pointsCard.classList.add('weather-cloudy');
+            } else if (finalPoints === 8) {
+                pointsCard.classList.add('weather-stormy');
+            } else if (finalPoints === 13) {
+                pointsCard.classList.add('weather-extreme');
+            }
+
+            // Show warning for 13-point stories
+            const warningContainer = document.getElementById('warning-container');
+            if (finalPoints === 13) {
+                warningContainer.innerHTML = `
+                    <div class="warning-banner">
+                        <strong>⚠️ Consider Breaking Down</strong>
+                        Stories at 13 points carry high risk. Can this be split into smaller deliverables?
+                    </div>
+                `;
+            } else {
+                warningContainer.innerHTML = '';
+            }
+        }
+
+        function resetCalculator() {
+            // Reset base to 2 points
+            document.getElementById('base2').checked = true;
+
+            // Reset all modifiers to 0 (first option)
+            document.getElementById('dep-none').checked = true;
+            document.getElementById('know-expert').checked = true;
+            document.getElementById('rep-routine').checked = true;
+            document.getElementById('comp-easy').checked = true;
+            document.getElementById('risk-low').checked = true;
+            document.getElementById('dur-minutes').checked = true;
+
+            // Reset team adjustments to neutral
+            document.getElementById('expertise-neutral').checked = true;
+            document.getElementById('context-neutral').checked = true;
+
+            // Recalculate
+            calculate();
+        }
+
+        // Initialize - add event listeners to all radio buttons
+        const radioGroups = ['base', 'dependencies', 'knowledge', 'repetition', 'complexity', 'risk', 'duration', 'expertise', 'context'];
+        radioGroups.forEach(group => {
+            document.querySelectorAll(`input[name="${group}"]`).forEach(radio => {
+                radio.addEventListener('change', calculate);
+            });
+        });
+
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>
