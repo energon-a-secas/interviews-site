@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interview Vibes — Behavioral Assessment Scorecard for Technical Interviews</title>
+    <title>Behavioral Interview Aid</title>
     <meta name="description" content="Free interviewer scorecard tool. Rate candidates across 18 behavioral questions in 6 categories — communication, story consistency, technical credibility, ownership, problem-solving, and vibe. Generate internal review and candidate feedback reports as markdown.">
     <meta name="author" content="Luciano Adonis">
     <meta name="keywords" content="interview scorecard, candidate assessment tool, behavioral interview questions, hiring rubric, interviewer evaluation form, technical interview scoring, DevOps interview, Cloud engineer interview, candidate feedback template, interview rating system, structured interview, hiring decision tool">
@@ -158,6 +158,8 @@
         nav a { color: #f9f9f9; text-decoration: none; padding: 8px 16px; border-radius: 5px; transition: all 0.3s ease; font-size: 0.95em; font-weight: 500; }
         nav a:hover { background: rgba(255, 255, 255, 0.1); }
         nav a.active { background: #0063e5; }
+        nav a.outline { background: #000; border: 1px solid #000; }
+        nav a.outline:hover { background: #1a1a1a; }
 
         .main-container { display: flex; max-width: 1400px; margin: 0 auto; padding: 30px; gap: 30px; }
         .content-area { flex: 1; max-width: 900px; }
@@ -391,13 +393,13 @@
     <header class="header-bar" role="banner">
         <div class="header-logo">
             <div>
-                <h1>Interview Vibes</h1>
-                <div class="header-subtitle">Candidate Assessment Tool</div>
+                <h1>Behavioral Interview Aid</h1>
+                <div class="header-subtitle">Interview Vibes</div>
             </div>
         </div>
         <nav aria-label="Main navigation">
             <a href="javascript:void(0)" onclick="resetAssessment()" class="active">Reset</a>
-            <a href="https://lucianoadonis.medium.com/list/tips-entrevistas-32c6eb8c1547" target="_blank" rel="noopener noreferrer">Medium</a>
+            <a href="https://lucianoadonis.medium.com/list/tips-entrevistas-32c6eb8c1547" target="_blank" rel="noopener noreferrer" class="outline">Medium</a>
         </nav>
     </header>
 
@@ -1402,6 +1404,20 @@
 
         var selectedPiece = null;
 
+        var PLACEHOLDER_NAMES = [
+            'Han Solo', 'Leia Organa', 'Cassian Andor', 'Jyn Erso',
+            'Din Djarin', 'Bail Organa', 'Wedge Antilles', 'Bodhi Rook',
+            'Hera Syndulla', 'Cal Kestis', 'Fennec Shand', 'Kanan Jarrus',
+            'Ezra Bridger', 'Mace Windu', 'Lando Calrissian', 'Padmé Amidala',
+            'Ahsoka Tano', 'Rex Fives', 'Boba Fett', 'Sabine Wren'
+        ];
+        function getPlaceholderName() {
+            return PLACEHOLDER_NAMES[Math.floor(Math.random() * PLACEHOLDER_NAMES.length)];
+        }
+        function getCandidateName() {
+            return document.getElementById('candidate-name').value.trim() || document.getElementById('candidate-name').placeholder;
+        }
+
         // ── Helpers ──
         function getVal(name) {
             const el = document.querySelector('input[name="' + name + '"]:checked');
@@ -1579,7 +1595,7 @@
 
         // ── Internal Report ──
         function generateInternalReport() {
-            var name = document.getElementById('candidate-name').value.trim() || 'Unnamed Candidate';
+            var name = getCandidateName();
             var notes = document.getElementById('notes').value.trim();
             var total = 0;
             for (var k in CATEGORIES) total += getCatScore(k);
@@ -1684,7 +1700,7 @@
 
         // ── Candidate Feedback Report ──
         function generateCandidateReport() {
-            var name = document.getElementById('candidate-name').value.trim() || 'Candidate';
+            var name = getCandidateName();
             var total = 0;
             for (var k in CATEGORIES) total += getCatScore(k);
             var pct = Math.round((total / 36) * 100);
@@ -1737,15 +1753,16 @@
             document.body.removeChild(a); URL.revokeObjectURL(url);
         }
         function downloadInternal() {
-            downloadMarkdown(generateInternalReport(), sanitizeName(document.getElementById('candidate-name').value.trim()) + '-internal-review.md');
+            downloadMarkdown(generateInternalReport(), sanitizeName(getCandidateName()) + '-internal-review.md');
         }
         function downloadFeedback() {
-            downloadMarkdown(generateCandidateReport(), sanitizeName(document.getElementById('candidate-name').value.trim()) + '-feedback.md');
+            downloadMarkdown(generateCandidateReport(), sanitizeName(getCandidateName()) + '-feedback.md');
         }
 
         // ── Reset ──
         function resetAssessment() {
             document.getElementById('candidate-name').value = '';
+            document.getElementById('candidate-name').placeholder = getPlaceholderName();
             document.getElementById('notes').value = '';
             var allGroups = Object.keys(CATEGORIES).reduce(function(arr, k) { return arr.concat(CATEGORIES[k].questions); }, []).concat(PROBE_NAMES);
             allGroups.forEach(function(name) {
@@ -1851,6 +1868,7 @@
         });
 
         // ── Init ──
+        document.getElementById('candidate-name').placeholder = getPlaceholderName();
         calculate();
     </script>
 </body>
