@@ -31,7 +31,7 @@ async function setAllBase(page, value) {
 test.describe('Page Load', () => {
   test('loads with correct title', async ({ page }) => {
     await page.goto(PAGE);
-    await expect(page).toHaveTitle(/Interview Vibes/);
+    await expect(page).toHaveTitle(/Behavioral Interview Aid/);
   });
 
   test('has SEO meta tags', async ({ page }) => {

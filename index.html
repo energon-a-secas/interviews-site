@@ -4,30 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Behavioral Interview Aid</title>
-    <meta name="description" content="Free interviewer scorecard tool. Rate candidates across 18 behavioral questions in 6 categories — communication, story consistency, technical credibility, ownership, problem-solving, and vibe. Generate internal review and candidate feedback reports as markdown.">
+    <meta name="description" content="Free behavioral interview scorecard for technical hiring. Rate candidates across 18 questions in 6 categories — communication, story consistency, technical credibility, ownership, problem-solving, and vibe. Auto-detect candidate archetype with the Core Five piece profile. Generate downloadable markdown reports.">
     <meta name="author" content="Luciano Adonis">
-    <meta name="keywords" content="interview scorecard, candidate assessment tool, behavioral interview questions, hiring rubric, interviewer evaluation form, technical interview scoring, DevOps interview, Cloud engineer interview, candidate feedback template, interview rating system, structured interview, hiring decision tool">
+    <meta name="keywords" content="behavioral interview aid, interview scorecard, candidate assessment tool, behavioral interview questions, hiring rubric, interviewer evaluation form, tech interview, technical interview scoring, DevOps interview, Cloud engineer interview, candidate feedback template, interview rating system, structured interview, hiring decision tool, core five, team archetype matching">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <link rel="canonical" href="https://lucianoadonis.github.io/Interview-Insight/">
+    <link rel="canonical" href="https://vibecheck.lucianoadonis.com/">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Interview Vibes — Behavioral Assessment Scorecard">
-    <meta property="og:description" content="Stop relying on gut feeling. Score candidates across communication, consistency, technical depth, ownership, problem-solving, and vibe. Generate internal and candidate-facing reports. Free, no sign-up, runs in your browser.">
-    <meta property="og:url" content="https://lucianoadonis.github.io/Interview-Insight/">
-    <meta property="og:site_name" content="Interview Vibes">
+    <meta property="og:title" content="Behavioral Interview Aid — Quantify the vibes">
+    <meta property="og:description" content="Stop relying on gut feeling. Score candidates across communication, consistency, technical depth, ownership, problem-solving, and vibe. Map them to team archetypes with the Core Five. Free, no sign-up, runs in your browser.">
+    <meta property="og:url" content="https://vibecheck.lucianoadonis.com/">
+    <meta property="og:site_name" content="Behavioral Interview Aid">
     <meta property="og:locale" content="en_US">
-    <meta property="og:image" content="https://lucianoadonis.github.io/Interview-Insight/og-image.png">
+    <meta property="og:image" content="https://vibecheck.lucianoadonis.com/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Interview Vibes — A behavioral assessment scorecard showing candidate scoring across 6 categories">
+    <meta property="og:image:alt" content="Behavioral Interview Aid — A scorecard showing candidate scoring across 6 categories with piece profile matching">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Interview Vibes — Behavioral Assessment Scorecard">
-    <meta name="twitter:description" content="Free interview scorecard. 18 questions, 6 categories, downloadable markdown reports. Quantify the vibes you get from someone.">
-    <meta name="twitter:image" content="https://lucianoadonis.github.io/Interview-Insight/og-image.png">
-    <meta name="twitter:image:alt" content="Interview Vibes — Candidate behavioral assessment scorecard">
+    <meta name="twitter:title" content="Behavioral Interview Aid — Quantify the vibes">
+    <meta name="twitter:description" content="Free interview scorecard. 18 questions, 6 categories, Core Five archetype matching, downloadable markdown reports.">
+    <meta name="twitter:image" content="https://vibecheck.lucianoadonis.com/og-image.png">
+    <meta name="twitter:image:alt" content="Behavioral Interview Aid — Candidate assessment scorecard with piece profile">
 
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -40,7 +40,7 @@
     <meta name="color-scheme" content="dark">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Interview Vibes">
+    <meta name="apple-mobile-web-app-title" content="BIA">
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBYF22LDTN"></script>
@@ -56,10 +56,11 @@
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "Interview Vibes",
-        "headline": "Behavioral Assessment Scorecard for Technical Interviews",
-        "description": "A free, browser-based behavioral assessment scorecard for interviewers. Rate candidates across 18 questions in 6 categories — communication, story consistency, technical credibility, ownership, problem-solving, and vibe. Generates downloadable internal review and candidate feedback reports.",
-        "url": "https://lucianoadonis.github.io/Interview-Insight/",
+        "name": "Behavioral Interview Aid",
+        "alternateName": "BIA",
+        "headline": "Behavioral Interview Aid — Quantify the vibes you get from someone",
+        "description": "A free, browser-based behavioral interview scorecard. Rate candidates across 18 questions in 6 categories, auto-detect their team archetype with the Core Five piece profile, and generate downloadable internal review and candidate feedback reports.",
+        "url": "https://vibecheck.lucianoadonis.com/",
         "applicationCategory": "BusinessApplication",
         "applicationSubCategory": "Human Resources",
         "operatingSystem": "Any",
@@ -75,6 +76,7 @@
         "featureList": [
             "18 behavioral assessment questions across 6 categories",
             "Real-time scoring with pass probability percentage",
+            "Core Five piece profile — auto-detect candidate archetype (Queen, Rook, Bishop, Knight, Pawn)",
             "Optional probe questions for deeper investigation",
             "Downloadable internal review report (Markdown)",
             "Downloadable candidate feedback report (Markdown)",
@@ -95,7 +97,7 @@
             "name": "Luciano Adonis"
         },
         "datePublished": "2026-02-21",
-        "keywords": "interview scorecard, behavioral assessment, candidate evaluation, hiring rubric, technical interview"
+        "keywords": "behavioral interview aid, interview scorecard, behavioral assessment, candidate evaluation, hiring rubric, technical interview, core five, team archetype"
     }
     </script>
 
@@ -107,10 +109,18 @@
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": "What does Interview Vibes assess?",
+                "name": "What does the Behavioral Interview Aid assess?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Interview Vibes scores candidates across 6 behavioral categories: Communication & Clarity, Story Consistency, Technical Credibility, Ownership & Accountability, Problem-Solving & Pressure, and The Vibe. Each category has 3 questions scored 0-2, for a maximum of 36 points."
+                    "text": "It scores candidates across 6 behavioral categories: Communication & Clarity, Story Consistency, Technical Credibility, Ownership & Accountability, Problem-Solving & Pressure, and The Vibe. Each category has 3 questions scored 0-2, for a maximum of 36 points."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the Core Five piece profile?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The piece profile maps candidate scores to chess piece archetypes — Queen, Rook, Bishop, Knight, or Pawn — based on six dimensions: Power, Range, Foresight, Insight, Versatility, and Speed. It helps interviewers understand what type of team role a candidate naturally fits."
                 }
             },
             {
@@ -123,10 +133,10 @@
             },
             {
                 "@type": "Question",
-                "name": "Does Interview Vibes store any data?",
+                "name": "Does the tool store any data?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "No. Interview Vibes runs entirely in your browser. No data is sent to any server. Reports are generated locally and downloaded as markdown files."
+                    "text": "No. It runs entirely in your browser. No data is sent to any server. Reports are generated locally and downloaded as markdown files."
                 }
             }
         ]
