@@ -1,8 +1,34 @@
-# Interview Vibes
+<div align="center">
 
-Quantifying the vibes you get from someone.
+# Vibe Check
 
-## Why This Exists
+Behavioral interview scorecard. Quantify the vibes with 18 questions, 6 categories, and chess piece archetype matching.
+
+[![Live][badge-site]][url-site]
+[![HTML5][badge-html]][url-html]
+[![CSS3][badge-css]][url-css]
+[![JavaScript][badge-js]][url-js]
+[![Claude Code][badge-claude]][url-claude]
+[![License][badge-license]](LICENSE)
+
+[badge-site]:    https://img.shields.io/badge/live_site-0063e5?style=for-the-badge&logo=googlechrome&logoColor=white
+[badge-html]:    https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white
+[badge-css]:     https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white
+[badge-js]:      https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
+[badge-claude]:  https://img.shields.io/badge/Claude_Code-CC785C?style=for-the-badge&logo=anthropic&logoColor=white
+[badge-license]: https://img.shields.io/badge/license-MIT-404040?style=for-the-badge
+
+[url-site]:   https://interviews.neorgon.com/
+[url-html]:   #
+[url-css]:    #
+[url-js]:     #
+[url-claude]: https://claude.ai/code
+
+</div>
+
+---
+
+## Why this exists
 
 With AI, everyone can answer technical questions. The real differentiation is in practical experience, communication, and how people handle pressure. This tool helps interviewers systematically assess behavioral signals that are normally left to gut feeling.
 
@@ -10,14 +36,14 @@ The goal is equilibrium: technical questions test knowledge, but behavioral asse
 
 Based on practical experience from conducting and preparing people for technical interviews (see part-1.md, part-2.md, part-3.md for the full philosophy).
 
-## How It Works
+## How it works
 
 - 18 base questions across 6 categories, each scored 0-1-2
 - 8 optional probe questions that dig deeper into Technical, Ownership, and Problem-Solving concerns
 - A pass probability percentage with verdict (Strong Pass / Likely Pass / Borderline / Unlikely / No Pass)
 - Two downloadable markdown reports: one for internal PM review, one for candidate feedback
 
-## Question Matrix
+## Question matrix
 
 ### Communication & Clarity
 
@@ -90,7 +116,7 @@ Based on practical experience from conducting and preparing people for technical
 | 17 | Do they show genuine role interest? | Asks specific questions, researched | Somewhat interested | Going through the motions | Engagement predictor |
 | 18 | Is their response pace reasonable? | Concise and confident | Slow but eventually gets there | Painfully slow or rambling | Client interaction readiness |
 
-## Piece Profile
+## Piece profile
 
 Based on [The Core Five](https://minibooks.lucianoadonis.com/pages/thesis-the-core-five) framework, the tool maps assessment scores to chess piece archetypes. Each of the 6 assessment categories maps to a dimension:
 
@@ -103,7 +129,7 @@ Based on [The Core Five](https://minibooks.lucianoadonis.com/pages/thesis-the-co
 | The Vibe | Versatility | Adaptability across teams and situations |
 | Problem-Solving & Pressure | Speed | Performance under pressure and deadlines |
 
-### The Pieces
+### The pieces
 
 | Piece | Profile | Best For |
 |-------|---------|----------|
@@ -169,3 +195,7 @@ Test profiles include: strong candidate, AI-only candidate, inconsistent storyte
 ## Usage
 
 Open `index.html` in any browser. No server required. Fill in the assessment during or after an interview, download the reports, share with your PM.
+
+---
+
+<div align="center"><sub>Part of <a href="https://neorgon.com">Neorgon</a></sub></div>

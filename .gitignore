@@ -6,3 +6,8 @@ blob-report/
 *.pyc
 __pycache__/
 .claude/
+
+# ── Prevent deployment of dev files ──────────────────────────────────────────
+CLAUDE.md
+.claudeignore
+package.json
