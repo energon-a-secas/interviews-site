@@ -105,7 +105,7 @@
     </a>
   </header>
 
-  <div class="main-container" role="main" id="main">
+  <div class="main-container" id="main">
     <main class="content-area" aria-label="Assessment form">
 
       <!-- Candidate Info -->
@@ -124,7 +124,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Does this person explain themselves clearly?</label>
-            <button class="help-trigger" onclick="showHelp('comm-1')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('comm-1')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">Ability to articulate ideas, experiences, and technical concepts</p>
           <div class="radio-group">
@@ -137,7 +137,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Can they structure and organize their thoughts?</label>
-            <button class="help-trigger" onclick="showHelp('comm-2')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('comm-2')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">Logical flow when presenting ideas or answering questions</p>
           <div class="radio-group">
@@ -150,7 +150,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Do they adapt their level of detail to the conversation?</label>
-            <button class="help-trigger" onclick="showHelp('comm-3')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('comm-3')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">Reads the room and adjusts communication style accordingly</p>
           <div class="radio-group">
@@ -168,7 +168,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Is their experience narrative consistent throughout?</label>
-            <button class="help-trigger" onclick="showHelp('story-1')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('story-1')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">Timeline, roles, and responsibilities stay coherent across the conversation</p>
           <div class="radio-group">
@@ -181,7 +181,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Do details hold when approached from different angles?</label>
-            <button class="help-trigger" onclick="showHelp('story-2')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('story-2')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">Asking the same thing differently still produces a coherent answer</p>
           <div class="radio-group">
@@ -194,7 +194,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Can they provide specific examples on demand?</label>
-            <button class="help-trigger" onclick="showHelp('story-3')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('story-3')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">When asked for concrete details, they deliver without hesitation</p>
           <div class="radio-group">
@@ -212,7 +212,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Are there technical gaps in their story?</label>
-            <button class="help-trigger" onclick="showHelp('tech-1')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('tech-1')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">Claimed experience vs. actual depth when probed on specifics</p>
           <div class="radio-group">
@@ -225,7 +225,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Do they understand the "why" behind their decisions?</label>
-            <button class="help-trigger" onclick="showHelp('tech-2')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('tech-2')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">Can explain reasoning, trade-offs, and alternatives — not just what they did</p>
           <div class="radio-group">
@@ -238,7 +238,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Can they go beyond rehearsed answers?</label>
-            <button class="help-trigger" onclick="showHelp('tech-3')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('tech-3')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">When pushed past their prepared talking points, do they still have substance?</p>
           <div class="radio-group">
@@ -255,7 +255,7 @@
             <div class="control-group">
               <div class="control-header">
                 <label class="control-label">Does their exposure come from hands-on work?</label>
-                <button class="help-trigger" onclick="showHelp('tech-p1')" type="button">?</button>
+                <button class="help-trigger" onclick="showHelp('tech-p1')" type="button" aria-label="Show guidance">?</button>
               </div>
               <p class="control-description">Determine if knowledge is from direct experience or observation</p>
               <div class="radio-group">
@@ -267,7 +267,7 @@
             <div class="control-group">
               <div class="control-header">
                 <label class="control-label">Can they elaborate on specific implementations?</label>
-                <button class="help-trigger" onclick="showHelp('tech-p2')" type="button">?</button>
+                <button class="help-trigger" onclick="showHelp('tech-p2')" type="button" aria-label="Show guidance">?</button>
               </div>
               <p class="control-description">Ask for concrete details about tools, configs, or code they worked with</p>
               <div class="radio-group">
@@ -287,7 +287,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Do they distinguish their work from team contributions?</label>
-            <button class="help-trigger" onclick="showHelp('own-1')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('own-1')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">Can they clearly say "I did X" vs "the team did Y"?</p>
           <div class="radio-group">
@@ -300,7 +300,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Does their ownership claim hold under deeper probing?</label>
-            <button class="help-trigger" onclick="showHelp('own-2')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('own-2')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">When you ask follow-ups, does the story stay solid or start crumbling?</p>
           <div class="radio-group">
@@ -313,7 +313,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Can they explain decisions they personally made?</label>
-            <button class="help-trigger" onclick="showHelp('own-3')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('own-3')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">Specific choices, trade-offs, and reasoning that were their own call</p>
           <div class="radio-group">
@@ -330,7 +330,7 @@
             <div class="control-group">
               <div class="control-header">
                 <label class="control-label">Is this their direct experience or a coworker's?</label>
-                <button class="help-trigger" onclick="showHelp('own-p1')" type="button">?</button>
+                <button class="help-trigger" onclick="showHelp('own-p1')" type="button" aria-label="Show guidance">?</button>
               </div>
               <p class="control-description">People sometimes absorb team stories as their own — probe for first-person details</p>
               <div class="radio-group">
@@ -350,7 +350,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">How do they handle not knowing something?</label>
-            <button class="help-trigger" onclick="showHelp('solve-1')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('solve-1')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">Do they acknowledge gaps honestly and try to reason through it?</p>
           <div class="radio-group">
@@ -363,7 +363,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Can they reason through problems in real-time?</label>
-            <button class="help-trigger" onclick="showHelp('solve-2')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('solve-2')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">Given a scenario or challenge, can they think on their feet?</p>
           <div class="radio-group">
@@ -376,7 +376,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Do they stay engaged under pressure?</label>
-            <button class="help-trigger" onclick="showHelp('solve-3')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('solve-3')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">When the interview gets challenging, do they lean in or check out?</p>
           <div class="radio-group">
@@ -394,7 +394,7 @@
             <div class="control-group">
               <div class="control-header">
                 <label class="control-label">Can they reason through a design trade-off they haven't rehearsed?</label>
-                <button class="help-trigger" onclick="showHelp('solve-p1')" type="button">?</button>
+                <button class="help-trigger" onclick="showHelp('solve-p1')" type="button" aria-label="Show guidance">?</button>
               </div>
               <p class="control-description">Present a trade-off between two valid approaches and see if they reason through it or freeze</p>
               <div class="radio-group">
@@ -407,7 +407,7 @@
             <div class="control-group">
               <div class="control-header">
                 <label class="control-label">Do they understand what breaks when you change a constraint?</label>
-                <button class="help-trigger" onclick="showHelp('solve-p2')" type="button">?</button>
+                <button class="help-trigger" onclick="showHelp('solve-p2')" type="button" aria-label="Show guidance">?</button>
               </div>
               <p class="control-description">Change a variable in their own story and see if they can predict the consequences</p>
               <div class="radio-group">
@@ -420,7 +420,7 @@
             <div class="control-group">
               <div class="control-header">
                 <label class="control-label">Can they explain when NOT to use a pattern they mentioned?</label>
-                <button class="help-trigger" onclick="showHelp('solve-p3')" type="button">?</button>
+                <button class="help-trigger" onclick="showHelp('solve-p3')" type="button" aria-label="Show guidance">?</button>
               </div>
               <p class="control-description">Someone who really understands a tool knows its limits, not just its strengths</p>
               <div class="radio-group">
@@ -433,7 +433,7 @@
             <div class="control-group">
               <div class="control-header">
                 <label class="control-label">Can they simplify an over-engineered proposal?</label>
-                <button class="help-trigger" onclick="showHelp('solve-p4')" type="button">?</button>
+                <button class="help-trigger" onclick="showHelp('solve-p4')" type="button" aria-label="Show guidance">?</button>
               </div>
               <p class="control-description">Propose something unnecessarily complex and see if they push back or blindly agree</p>
               <div class="radio-group">
@@ -446,7 +446,7 @@
             <div class="control-group">
               <div class="control-header">
                 <label class="control-label">Can they walk through debugging a system they didn't build?</label>
-                <button class="help-trigger" onclick="showHelp('solve-p5')" type="button">?</button>
+                <button class="help-trigger" onclick="showHelp('solve-p5')" type="button" aria-label="Show guidance">?</button>
               </div>
               <p class="control-description">Describe a broken scenario and see if they have a systematic approach or just guess</p>
               <div class="radio-group">
@@ -466,7 +466,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Would you want to work with this person daily?</label>
-            <button class="help-trigger" onclick="showHelp('vibe-1')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('vibe-1')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">The gut check — personality, energy, and how they'd fit the team</p>
           <div class="radio-group">
@@ -479,7 +479,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Do they show genuine interest in the role?</label>
-            <button class="help-trigger" onclick="showHelp('vibe-2')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('vibe-2')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">Curiosity about the team, the work, and the challenges ahead</p>
           <div class="radio-group">
@@ -492,7 +492,7 @@
         <div class="control-group">
           <div class="control-header">
             <label class="control-label">Is their response pace reasonable?</label>
-            <button class="help-trigger" onclick="showHelp('vibe-3')" type="button">?</button>
+            <button class="help-trigger" onclick="showHelp('vibe-3')" type="button" aria-label="Show guidance">?</button>
           </div>
           <p class="control-description">Confident and timely answers vs. long pauses or rambling</p>
           <div class="radio-group">
@@ -593,8 +593,8 @@
 
   <!-- Help Modal -->
   <div class="help-overlay" id="help-overlay">
-    <div class="help-modal">
-      <button class="help-modal-close" onclick="closeHelp()" type="button">&times;</button>
+    <div class="help-modal" role="dialog" aria-modal="true" aria-labelledby="help-title">
+      <button class="help-modal-close" onclick="closeHelp()" type="button" aria-label="Close help">&times;</button>
       <h3 id="help-title"></h3>
       <div id="help-body"></div>
     </div>

@@ -68,8 +68,8 @@ nav a {
 }
 nav a:hover { background: rgba(255,255,255,0.1); }
 nav a.active { background: var(--accent); }
-nav a.outline { background: #000; border: 1px solid #000; }
-nav a.outline:hover { background: #1a1a1a; }
+nav a.outline { background: var(--bg); border: 1px solid var(--bg); }
+nav a.outline:hover { background: #11151f; }
 
 /* ── Home icon (with-nav pattern) ────────────────────────────────── */
 .header-home {

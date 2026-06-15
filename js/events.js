@@ -80,7 +80,8 @@ function scrollToElement(el, highlightClass) {
   const headerHeight = document.querySelector('.header-bar').offsetHeight + 30;
   const rect = el.getBoundingClientRect();
   const scrollTop = window.pageYOffset + rect.top - headerHeight;
-  window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top: scrollTop, behavior: reduceMotion ? 'auto' : 'smooth' });
   setTimeout(() => {
     el.classList.remove(highlightClass);
     void el.offsetWidth;
