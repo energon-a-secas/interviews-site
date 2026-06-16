@@ -424,6 +424,91 @@ test.describe('Reset', () => {
   });
 });
 
+// ── Sessions ──
+
+test.describe('Sessions', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(PAGE);
+    await page.evaluate(() => {
+      localStorage.clear();
+    });
+    await page.reload();
+  });
+
+  test('save button persists candidate name and scores', async ({ page }) => {
+    await page.locator('#candidate-name').fill('Alex Smith');
+    await setQuestion(page, 'comm-1', 2);
+    await setQuestion(page, 'comm-2', 0);
+    await page.locator('#save-session-btn').click();
+
+    const sessions = await page.evaluate(() => {
+      return JSON.parse(localStorage.getItem('vibe-check-sessions') || '[]');
+    });
+    expect(sessions.length).toBe(1);
+    expect(sessions[0].name).toBe('Alex Smith');
+    expect(sessions[0].scores['comm-1']).toBe(2);
+    expect(sessions[0].scores['comm-2']).toBe(0);
+  });
+
+  test('reload restores the current session', async ({ page }) => {
+    await page.locator('#candidate-name').fill('Jamie Doe');
+    await page.locator('#role-select').selectOption('tech-lead');
+    await setQuestion(page, 'story-1', 0);
+    await page.locator('#notes').fill('Good energy');
+    await page.locator('#save-session-btn').click();
+
+    await page.reload();
+    await expect(page.locator('#candidate-name')).toHaveValue('Jamie Doe');
+    await expect(page.locator('#role-select')).toHaveValue('tech-lead');
+    await expect(page.locator('#score-total')).toHaveText('17');
+    await expect(page.locator('#notes')).toHaveValue('Good energy');
+  });
+
+  test('sessions drawer lists saved sessions', async ({ page }) => {
+    await page.locator('#candidate-name').fill('Jordan');
+    await page.locator('#save-session-btn').click();
+    await page.locator('#sessions-btn').click();
+
+    await expect(page.locator('#sessions-overlay')).toHaveClass(/visible/);
+    await expect(page.locator('.sessions-item-name')).toHaveText('Jordan');
+  });
+
+  test('load a different session from the drawer', async ({ page }) => {
+    await page.locator('#candidate-name').fill('First');
+    await setQuestion(page, 'comm-1', 2);
+    await page.locator('#save-session-btn').click();
+
+    await page.locator('#new-session-btn').click();
+    await page.locator('#candidate-name').fill('Second');
+    await setQuestion(page, 'comm-1', 0);
+    await page.locator('#save-session-btn').click();
+
+    await page.locator('#sessions-btn').click();
+    const items = page.locator('.sessions-item');
+    await expect(items).toHaveCount(2);
+
+    // Second is active; load first
+    await items.nth(1).locator('button[data-action="load"]').click();
+    await expect(page.locator('#candidate-name')).toHaveValue('First');
+    await expect(page.locator('#score-total')).toHaveText('19');
+  });
+
+  test('delete a session from the drawer', async ({ page }) => {
+    await page.locator('#candidate-name').fill('Delete Me');
+    await page.locator('#save-session-btn').click();
+
+    await page.locator('#sessions-btn').click();
+    page.on('dialog', dialog => dialog.accept());
+    await page.locator('button[data-action="delete"]').click();
+
+    await expect(page.locator('.sessions-empty')).toBeVisible();
+    const sessions = await page.evaluate(() => {
+      return JSON.parse(localStorage.getItem('vibe-check-sessions') || '[]');
+    });
+    expect(sessions.length).toBe(0);
+  });
+});
+
 // ── Downloads ──
 
 test.describe('Downloads', () => {

@@ -3,6 +3,15 @@ import { state } from './state.js';
 import { getPlaceholderName, getCandidateName, sanitizeName, downloadMarkdown } from './utils.js';
 import { calculate, updatePieceMatrix } from './scoring.js';
 import { generateInternalReport, generateCandidateReport } from './reports.js';
+import { gatherFormState, applyFormState, getAllQuestionNames } from './session.js';
+import {
+  listSessions, getSession, saveSession, deleteSession as storageDelete,
+  renameSession, exportSessions, importSessions,
+  getCurrentSession, setCurrentSession, createSession
+} from './storage.js';
+
+let autoSaveTimer = null;
+let isRestoring = false;
 
 function showHelp(questionId) {
   const data = HELP_CONTENT[questionId];
@@ -28,11 +37,13 @@ function closeHelp() {
 function selectPiece(key) {
   state.selectedPiece = (state.selectedPiece === key) ? null : key;
   updatePieceMatrix();
+  scheduleAutoSave();
 }
 
 function resetPieceSelection() {
   state.selectedPiece = null;
   updatePieceMatrix();
+  scheduleAutoSave();
 }
 
 function downloadInternal() {
@@ -44,11 +55,13 @@ function downloadFeedback() {
 }
 
 function resetAssessment() {
+  setCurrentSession(null);
   document.getElementById('candidate-name').value = '';
   document.getElementById('candidate-name').placeholder = getPlaceholderName();
+  document.getElementById('role-select').value = 'individual-contributor';
   document.getElementById('notes').value = '';
   document.getElementById('cheat-notes').value = '';
-  const allGroups = Object.keys(CATEGORIES).reduce((arr, k) => arr.concat(CATEGORIES[k].questions), []).concat(PROBE_NAMES);
+  const allGroups = getAllQuestionNames();
   allGroups.forEach(name => {
     const mid = document.querySelector(`input[name="${name}"][value="1"]`);
     if (mid) mid.checked = true;
@@ -59,6 +72,175 @@ function resetAssessment() {
   document.getElementById('cheat-probes').removeAttribute('open');
   state.selectedPiece = null;
   calculate();
+  updateSessionStatus('New session');
+}
+
+// Sessions UI
+function updateSessionStatus(text) {
+  const el = document.getElementById('session-status');
+  if (!el) return;
+  el.textContent = text || '';
+  el.classList.remove('visible');
+  void el.offsetWidth;
+  el.classList.add('visible');
+  setTimeout(() => el.classList.remove('visible'), 2000);
+}
+
+function getSessionDisplayName(session) {
+  return (session.name || 'Unnamed candidate').trim() || 'Unnamed candidate';
+}
+
+function renderSessionsList() {
+  const container = document.getElementById('sessions-list');
+  const sessions = listSessions();
+  const currentId = getCurrentSession() ? getCurrentSession().id : null;
+  if (!sessions.length) {
+    container.innerHTML = '<p class="sessions-empty">No saved sessions yet.</p>';
+    return;
+  }
+  let html = '';
+  sessions.forEach(s => {
+    const isActive = s.id === currentId ? ' active' : '';
+    const date = new Date(s.updatedAt).toLocaleString();
+    html += `
+      <div class="sessions-item${isActive}" data-id="${s.id}">
+        <div class="sessions-item-info">
+          <div class="sessions-item-name" id="session-name-${s.id}">${escapeHtml(getSessionDisplayName(s))}</div>
+          <div class="sessions-item-meta">${escapeHtml(s.role.replace(/-/g, ' '))} · ${date}</div>
+        </div>
+        <div class="sessions-item-actions">
+          <button class="session-action-btn" data-action="load" data-id="${s.id}" title="Load">↗</button>
+          <button class="session-action-btn" data-action="rename" data-id="${s.id}" title="Rename">✎</button>
+          <button class="session-action-btn" data-action="export" data-id="${s.id}" title="Export">⬇</button>
+          <button class="session-action-btn session-action-danger" data-action="delete" data-id="${s.id}" title="Delete">×</button>
+        </div>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function saveCurrentSession() {
+  const current = getCurrentSession();
+  const id = current ? current.id : createSession().id;
+  const data = gatherFormState();
+  const session = saveSession({
+    id,
+    name: data.name,
+    role: data.role,
+    scores: data.scores,
+    notes: data.notes,
+    cheatNotes: data.cheatNotes,
+    selectedPiece: data.selectedPiece,
+    timerDuration: data.timerDuration
+  });
+  setCurrentSession(session.id);
+  updateSessionStatus('Saved');
+  return session;
+}
+
+function scheduleAutoSave() {
+  if (isRestoring) return;
+  if (autoSaveTimer) clearTimeout(autoSaveTimer);
+  autoSaveTimer = setTimeout(() => {
+    const current = getCurrentSession();
+    if (!current) return;
+    saveCurrentSession();
+  }, 800);
+}
+
+function openSessions() {
+  renderSessionsList();
+  document.getElementById('sessions-overlay').classList.add('visible');
+}
+
+function closeSessions() {
+  document.getElementById('sessions-overlay').classList.remove('visible');
+}
+
+function loadSession(id) {
+  const session = getSession(id);
+  if (!session) return;
+  isRestoring = true;
+  setCurrentSession(session.id);
+  applyFormState(session);
+  calculate();
+  closeSessions();
+  updateSessionStatus('Loaded');
+  isRestoring = false;
+}
+
+function newSession() {
+  resetAssessment();
+}
+
+function exportAllSessions() {
+  const blob = new Blob([exportSessions()], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'vibe-check-sessions.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function exportSession(id) {
+  const session = getSession(id);
+  if (!session) return;
+  const payload = JSON.stringify({
+    app: 'vibe-check',
+    sessions: [session]
+  }, null, 2);
+  const blob = new Blob([payload], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = sanitizeName(session.name || 'candidate') + '-vibe-check.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function importFile(file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      importSessions(e.target.result);
+      renderSessionsList();
+      updateSessionStatus('Imported');
+    } catch (err) {
+      alert('Import failed: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function deleteSession(id) {
+  if (!confirm('Delete this session?')) return;
+  storageDelete(id);
+  const current = getCurrentSession();
+  if (!current) {
+    resetAssessment();
+  }
+  renderSessionsList();
+}
+
+function promptRename(id) {
+  const session = getSession(id);
+  if (!session) return;
+  const name = prompt('Rename session:', session.name || '');
+  if (name === null) return;
+  renameSession(id, name);
+  renderSessionsList();
 }
 
 // Auto-advance logic
@@ -132,17 +314,54 @@ function advanceToNext(radioName, questionOrder, cards) {
 export function initEvents() {
   const { questionOrder, cards } = buildQuestionOrder();
 
-  const allRadioNames = Object.keys(CATEGORIES).reduce((arr, k) => arr.concat(CATEGORIES[k].questions), []).concat(PROBE_NAMES);
+  const allRadioNames = getAllQuestionNames();
   allRadioNames.forEach(name => {
     document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
       radio.addEventListener('change', () => {
         calculate();
         advanceToNext(name, questionOrder, cards);
+        scheduleAutoSave();
       });
     });
   });
 
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHelp(); });
+  // Text inputs trigger auto-save
+  ['candidate-name', 'notes', 'cheat-notes', 'role-select'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', scheduleAutoSave);
+  });
+
+  // Session buttons
+  document.getElementById('save-session-btn').addEventListener('click', () => {
+    saveCurrentSession();
+  });
+  document.getElementById('sessions-btn').addEventListener('click', openSessions);
+  document.getElementById('new-session-btn').addEventListener('click', newSession);
+  document.getElementById('export-all-btn').addEventListener('click', exportAllSessions);
+  document.getElementById('import-file').addEventListener('change', e => {
+    if (e.target.files && e.target.files[0]) importFile(e.target.files[0]);
+    e.target.value = '';
+  });
+  document.getElementById('sessions-list').addEventListener('click', e => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const id = btn.getAttribute('data-id');
+    const action = btn.getAttribute('data-action');
+    if (action === 'load') loadSession(id);
+    else if (action === 'rename') promptRename(id);
+    else if (action === 'export') exportSession(id);
+    else if (action === 'delete') deleteSession(id);
+  });
+  document.getElementById('sessions-overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('sessions-overlay')) closeSessions();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeHelp();
+      closeSessions();
+    }
+  });
 
   document.getElementById('help-overlay').addEventListener('click', function(e) {
     if (e.target === this) closeHelp();
@@ -157,4 +376,6 @@ export function initEvents() {
   window.resetAssessment = resetAssessment;
   window.generateInternalReport = generateInternalReport;
   window.generateCandidateReport = generateCandidateReport;
+  window.openSessions = openSessions;
+  window.closeSessions = closeSessions;
 }

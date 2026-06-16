@@ -204,12 +204,14 @@ nav a.outline:hover { background: #11151f; }
   box-shadow: 0 16px 48px rgba(0,0,0,0.5); position: relative;
   max-height: 80vh; overflow-y: auto;
 }
-.help-modal-close {
-  position: absolute; top: 14px; right: 16px; background: none; border: none;
+.help-modal-close, .sessions-close {
+  background: none; border: none;
   color: rgba(255,255,255,0.4); font-size: 1.3em; cursor: pointer; padding: 4px 8px;
   transition: color var(--dur); font-family: inherit;
 }
-.help-modal-close:hover { color: #fff; }
+.help-modal-close { position: absolute; top: 14px; right: 16px; }
+.sessions-close { position: relative; top: auto; right: auto; }
+.help-modal-close:hover, .sessions-close:hover { color: #fff; }
 .help-modal h3 { font-size: 1.1em; margin-bottom: 18px; color: var(--text-primary); padding-right: 30px; line-height: 1.4; }
 .help-section { margin-bottom: 16px; }
 .help-section:last-child { margin-bottom: 0; }
@@ -410,4 +412,73 @@ button:active, .btn:active {
 .footer-link:focus-visible {
   color: rgba(255,255,255,.72);
   text-decoration: underline;
+}
+
+/* ── Sessions UI ──────────────────────────────────────────────────── */
+.candidate-header { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; }
+.candidate-name-group { flex: 2; min-width: 200px; }
+.candidate-role-group { flex: 1; min-width: 160px; }
+.session-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.session-btn {
+  padding: 10px 16px; border-radius: var(--radius-sm); font-family: inherit;
+  font-size: 0.9em; font-weight: 600; cursor: pointer; transition: all var(--dur) ease;
+  background: var(--accent); color: #fff; border: none;
+}
+.session-btn:hover { background: var(--accent-bright); transform: translateY(-1px); }
+.session-btn-secondary { background: rgba(255,255,255,0.08); color: var(--text-primary); border: 1px solid var(--border); }
+.session-btn-secondary:hover { background: rgba(255,255,255,0.14); }
+.session-status {
+  margin-top: 10px; font-size: 0.8em; color: var(--accent-bright); opacity: 0; transition: opacity 0.3s ease; min-height: 1.2em;
+}
+.session-status.visible { opacity: 1; }
+
+.sessions-overlay {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(4,7,20,0.8); backdrop-filter: blur(4px);
+  z-index: 300; align-items: center; justify-content: flex-end;
+}
+.sessions-overlay.visible { display: flex; }
+.sessions-drawer {
+  background: #1a1d2e; border-left: 1px solid rgba(255,255,255,0.15);
+  width: 420px; max-width: 90vw; height: 100%;
+  display: flex; flex-direction: column;
+  box-shadow: -8px 0 32px rgba(0,0,0,0.4);
+  transform: translateX(100%); transition: transform 0.25s ease;
+}
+.sessions-overlay.visible .sessions-drawer { transform: translateX(0); }
+.sessions-drawer-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 24px; border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.sessions-drawer-header h3 { font-size: 1.15em; font-weight: 600; }
+.sessions-actions {
+  display: flex; gap: 10px; padding: 18px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sessions-list { flex: 1; overflow-y: auto; padding: 8px 0; }
+.sessions-empty { padding: 24px; color: var(--text-muted); font-size: 0.9em; text-align: center; }
+.sessions-item {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 14px 24px; border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background var(--dur);
+}
+.sessions-item:hover { background: rgba(255,255,255,0.03); }
+.sessions-item.active { background: rgba(0,99,229,0.1); border-left: 3px solid var(--accent); padding-left: 21px; }
+.sessions-item-info { min-width: 0; }
+.sessions-item-name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sessions-item-meta { font-size: 0.75em; color: var(--text-muted); margin-top: 2px; text-transform: capitalize; }
+.sessions-item-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.session-action-btn {
+  width: 30px; height: 30px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04); color: var(--text-secondary); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-size: 0.9em; line-height: 1;
+  transition: all var(--dur);
+}
+.session-action-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.session-action-danger:hover { background: rgba(220,38,38,0.2); border-color: rgba(220,38,38,0.4); color: #fca5a5; }
+
+@media (max-width: 600px) {
+  .candidate-header { flex-direction: column; align-items: stretch; gap: 12px; }
+  .candidate-name-group, .candidate-role-group { min-width: 0; width: 100%; }
+  .sessions-drawer { width: 100%; max-width: 100%; }
 }

@@ -115,10 +115,26 @@
       <!-- Candidate Info -->
       <div class="card">
         <h2 class="section-title">Candidate</h2>
-        <div class="control-group">
-          <label class="control-label">Name</label>
-          <input type="text" id="candidate-name" class="text-input" placeholder="Enter candidate name">
+        <div class="candidate-header">
+          <div class="control-group candidate-name-group">
+            <label class="control-label" for="candidate-name">Name</label>
+            <input type="text" id="candidate-name" class="text-input" placeholder="Enter candidate name">
+          </div>
+          <div class="control-group candidate-role-group">
+            <label class="control-label" for="role-select">Role</label>
+            <select id="role-select" class="text-input">
+              <option value="individual-contributor">Individual Contributor</option>
+              <option value="tech-lead">Tech Lead</option>
+              <option value="engineering-manager">Engineering Manager</option>
+            </select>
+          </div>
         </div>
+        <div class="session-actions">
+          <button class="session-btn" id="save-session-btn" type="button">Save</button>
+          <button class="session-btn session-btn-secondary" id="sessions-btn" type="button">Sessions</button>
+          <button class="session-btn session-btn-secondary" id="new-session-btn" type="button">New</button>
+        </div>
+        <div class="session-status" id="session-status"></div>
       </div>
 
       <!-- Communication & Clarity -->
@@ -702,6 +718,24 @@
       <button class="help-modal-close" onclick="closeHelp()" type="button" aria-label="Close help">&times;</button>
       <h3 id="help-title"></h3>
       <div id="help-body"></div>
+    </div>
+  </div>
+
+  <!-- Sessions Drawer -->
+  <div class="sessions-overlay" id="sessions-overlay">
+    <div class="sessions-drawer" role="dialog" aria-modal="true" aria-labelledby="sessions-title">
+      <div class="sessions-drawer-header">
+        <h3 id="sessions-title">Saved Sessions</h3>
+        <button class="sessions-close" onclick="closeSessions()" type="button" aria-label="Close sessions">&times;</button>
+      </div>
+      <div class="sessions-actions">
+        <button class="session-btn" id="export-all-btn" type="button">Export All</button>
+        <label class="session-btn session-btn-secondary" style="position:relative;overflow:hidden">
+          Import
+          <input type="file" id="import-file" accept=".json" style="position:absolute;left:-9999px">
+        </label>
+      </div>
+      <div class="sessions-list" id="sessions-list"></div>
     </div>
   </div>
 
