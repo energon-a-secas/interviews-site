@@ -43,13 +43,17 @@ Modular ES module app: `index.html` shell + `css/style.css` + `js/*.js`.
 ### Key data structures
 
 - `CATEGORIES` — maps 6 category keys (comm, story, tech, own, solve, vibe) to their question arrays
-- `HELP_CONTENT` — 21 entries with `title`, `objective`, `ask[]`, `lookFor[]` for the help modal
+- `HELP_CONTENT` — 27 entries with `title`, `objective`, `ask[]`, `lookFor[]` for the help modal (21 base/probe + 6 anti-cheat)
 - `PIECE_PROFILES` — 5 chess piece archetypes (queen, rook, bishop, knight, pawn) with expected dimension levels
 - `DIMENSION_MAP` — maps 6 category keys to Core Five dimensions (tech->Power, comm->Range, story->Foresight, own->Insight, vibe->Versatility, solve->Speed)
 
 ### Probe questions
 
 8 optional probes (tech-p1, tech-p2, own-p1, solve-p1 through solve-p5) live inside `<details>/<summary>` dropdowns. They are tracked separately and do NOT affect the main score. The probe tag changes from "Optional" to "Recommended" when any question in that category scores 0.
+
+### Anti-cheat observations
+
+6 optional AI / Coaching Tells (`cheat-pace`, `cheat-template`, `cheat-tone`, `cheat-device`, `cheat-offtopic`, `cheat-echo`) live in a collapsed `<details>` card after *The Vibe*. They are tracked as probes, do not affect the 0–36 score, and appear only in the internal review report. A sidebar indicator shows Low / Medium / High risk based on the count of red-flag (`0`) observations.
 
 ### test_scoring.py
 

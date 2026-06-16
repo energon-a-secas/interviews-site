@@ -174,6 +174,21 @@ Two markdown files are generated:
 - Suggested next steps based on performance level
 - Professional and encouraging tone
 
+## Anti-Cheat Observations
+
+A collapsed **AI / Coaching Tells** section helps interviewers record behavioral signals that may indicate AI-assisted or coached answers during the interview:
+
+- Long pause → suddenly fluent / expert answer
+- Generic STAR or blog-post templates
+- Tone or vocabulary shifts mid-interview
+- Looking away from camera / typing before answering
+- Struggling with off-topic or curveball follow-ups
+- Echoing question wording back verbatim
+
+These observations are **not scored** and do not affect the pass probability. They appear only in the internal review report, along with an AI-assist risk indicator (Low / Medium / High) based on clusters of red flags.
+
+See [`docs/anti-cheat-scenarios.md`](docs/anti-cheat-scenarios.md) for concrete interview scenarios and follow-up probes.
+
 ## Testing
 
 Run the Python test suite to validate scoring logic across different candidate profiles:
@@ -192,7 +207,7 @@ flowchart TB
 
     subgraph App["ES Modules (Ephemeral — No localStorage)"]
         HTML --> app["app.js\nEntry point"]
-        app --> data["data.js\n18 questions, 8 probes, piece profiles"]
+        app --> data["data.js\n18 questions, 8 probes, 6 anti-cheat tells, piece profiles, verdict thresholds"]
         app --> scoring["scoring.js\nPass probability + Core Five matching"]
         app --> reports["reports.js\nMarkdown report generation"]
         app --> events["events.js\nScoring, piece selection, reset"]
@@ -210,7 +225,7 @@ interviews-site/
 │   └── style.css    # All styles
 └── js/
     ├── app.js       # Entry point
-    ├── data.js      # 18 questions, 8 probes, piece profiles, verdict thresholds
+    ├── data.js      # 18 questions, 8 probes, 6 anti-cheat tells, piece profiles, verdict thresholds
     ├── scoring.js   # Score calculation + Core Five piece matching
     ├── reports.js   # Internal review + candidate feedback markdown generation
     ├── events.js    # Score inputs, piece selection, reset, download
