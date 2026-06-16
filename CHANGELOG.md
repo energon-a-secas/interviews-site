@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dedicated **Anti-Cheat Notes** textarea inside the collapsed section for free-form interviewer observations.
 - Anti-cheat signals and notes are included in the internal review report; they remain excluded from the candidate feedback report.
 - Playwright test coverage for the anti-cheat section, risk indicator, report inclusion/exclusion, and reset behavior.
+- **Candidate Sessions** — save, load, rename, delete, import, and export assessments via `localStorage`.
+- **Role selector** placeholder in the Candidate card (Individual Contributor / Tech Lead / Engineering Manager).
+- Auto-save after form edits with a visible status indicator.
+- Sessions drawer accessible from the Candidate card, plus JSON export/import.
 
 ### Changed
 
