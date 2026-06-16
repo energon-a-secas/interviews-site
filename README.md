@@ -40,8 +40,14 @@ Based on practical experience from conducting and preparing people for technical
 
 - 18 base questions across 6 categories, each scored 0-1-2
 - 8 optional probe questions that dig deeper into Technical, Ownership, and Problem-Solving concerns
+- 6 anti-cheat observations to flag AI-assisted or coached answers
 - A pass probability percentage with verdict (Strong Pass / Likely Pass / Borderline / Unlikely / No Pass)
+- Candidate sessions saved in `localStorage` with export/import
+- Side-by-side candidate comparison page
+- Role selector (IC / Tech Lead / Engineering Manager) for role-aware reports
+- Interview timer with timestamped notes
 - Two downloadable markdown reports: one for internal PM review, one for candidate feedback
+- Print-friendly report stylesheet
 
 ## Question matrix
 
@@ -205,31 +211,43 @@ Test profiles include: strong candidate, AI-only candidate, inconsistent storyte
 flowchart TB
     User([User]) --> HTML["index.html\nApp shell"]
 
-    subgraph App["ES Modules (Ephemeral — No localStorage)"]
+    subgraph App["ES Modules + localStorage"]
         HTML --> app["app.js\nEntry point"]
-        app --> data["data.js\n18 questions, 8 probes, 6 anti-cheat tells, piece profiles, verdict thresholds"]
+        app --> data["data.js\n18 questions, 8 probes, 6 anti-cheat tells, roles, piece profiles, verdict thresholds"]
         app --> scoring["scoring.js\nPass probability + Core Five matching"]
         app --> reports["reports.js\nMarkdown report generation"]
-        app --> events["events.js\nScoring, piece selection, reset"]
+        app --> events["events.js\nScoring, piece selection, reset, sessions UI"]
+        app --> keyboard["keyboard.js\n1/2/3 and ? shortcuts"]
+        app --> timer["timer.js\nInterview timer + timestamps"]
+        app --> session["session.js\nSerialize/deserialize form state"]
+        app --> storage["storage.js\nlocalStorage save/load/import/export"]
         app --> state["state.js\nSession state"]
         app --> utils["utils.js\nHelpers"]
+        Compare[compare.html] --> comparejs["compare.js\nSide-by-side candidate comparison"]
     end
 
     reports --> Downloads["Markdown downloads\nReviewer report + Candidate feedback"]
+    reports --> Print["Print / PDF report"]
 ```
 
 ```
 interviews-site/
 ├── index.html       # App shell
+├── compare.html     # Side-by-side candidate comparison
 ├── css/
 │   └── style.css    # All styles
 └── js/
     ├── app.js       # Entry point
-    ├── data.js      # 18 questions, 8 probes, 6 anti-cheat tells, piece profiles, verdict thresholds
-    ├── scoring.js   # Score calculation + Core Five piece matching
+    ├── compare.js   # Candidate comparison rendering
+    ├── data.js      # 18 questions, 8 probes, 6 anti-cheat tells, roles, piece profiles, verdict thresholds
+    ├── events.js    # Score inputs, piece selection, reset, sessions UI
+    ├── keyboard.js  # 1/2/3 rating and ? help shortcuts
     ├── reports.js   # Internal review + candidate feedback markdown generation
-    ├── events.js    # Score inputs, piece selection, reset, download
+    ├── scoring.js   # Score calculation + Core Five piece matching
+    ├── session.js   # Form state serialization helpers
     ├── state.js     # Ephemeral session state
+    ├── storage.js   # localStorage save/load/import/export
+    ├── timer.js     # Interview timer + timestamped notes
     └── utils.js     # Helpers
 ```
 
@@ -237,7 +255,11 @@ interviews-site/
 
 ## Files
 
-- `index.html` — The assessment tool (single-file, no dependencies)
+- `index.html` — The assessment tool
+- `compare.html` — Side-by-side candidate comparison
+- `js/session.js` + `js/storage.js` — Save, load, rename, delete, import, export candidate sessions
+- `js/keyboard.js` — Keyboard shortcuts for live scoring
+- `js/timer.js` — Interview timer and timestamped notes
 - `test_scoring.py` — Python unit tests for scoring logic
 - `part-1.md` — Interview preparation and mindset
 - `part-2.md` — Interview phases and the "feeling" factor

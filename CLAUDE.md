@@ -32,13 +32,18 @@ Modular ES module app: `index.html` shell + `css/style.css` + `js/*.js`.
 
 ### Module structure
 
-- `js/app.js` — Entry point (<10 lines), imports and initializes
+- `js/app.js` — Entry point, imports and initializes modules
 - `js/state.js` — Shared mutable state (`selectedPiece`)
-- `js/data.js` — All constants: CATEGORIES, QUESTION_TEXT, HELP_CONTENT, SUGGESTIONS, VERDICTS, DIMENSION_MAP, PIECE_PROFILES, PLACEHOLDER_NAMES
-- `js/utils.js` — Small helpers: getVal, getLabel, getCatScore, getVerdict, getCandidateName, sanitizeName, today, downloadMarkdown
-- `js/scoring.js` — Core calculation: calculate, dimMatchScore, calculatePieceMatches, getBestPiece, updatePieceMatrix, updateProbeIndicators
+- `js/data.js` — All constants: CATEGORIES, QUESTION_TEXT, HELP_CONTENT, SUGGESTIONS, VERDICTS, ROLES, DIMENSION_MAP, PIECE_PROFILES, PLACEHOLDER_NAMES
+- `js/utils.js` — Small helpers: getVal, getLabel, getCatScore, getVerdict, getCheatRisk, getCandidateName, sanitizeName, today, downloadMarkdown
+- `js/scoring.js` — Core calculation: calculate, calculateMetrics, dimMatchScore, calculatePieceMatches, getBestPiece, updatePieceMatrix, updateProbeIndicators
 - `js/reports.js` — Report generation: generateInternalReport, generateCandidateReport
-- `js/events.js` — Event handlers: help modal, piece selection, reset, downloads, auto-advance. Exposes functions on `window.*` for onclick handlers in HTML.
+- `js/events.js` — Event handlers: help modal, piece selection, reset, downloads, auto-advance, sessions UI
+- `js/keyboard.js` — Keyboard shortcuts: 1/2/3 to rate, ? for help, / to focus name
+- `js/session.js` — Form state serialization/deserialization helpers and schema version
+- `js/storage.js` — localStorage persistence: save, load, rename, delete, import, export sessions
+- `js/timer.js` — Interview timer, timestamp insertion, and keyboard shortcut (Ctrl/Cmd+Shift+T)
+- `js/compare.js` — Renders `compare.html` side-by-side candidate comparison
 
 ### Key data structures
 
@@ -54,6 +59,30 @@ Modular ES module app: `index.html` shell + `css/style.css` + `js/*.js`.
 ### Anti-cheat observations
 
 6 optional AI / Coaching Tells (`cheat-pace`, `cheat-template`, `cheat-tone`, `cheat-device`, `cheat-offtopic`, `cheat-echo`) live in a collapsed `<details>` card after *The Vibe*. They are tracked as probes, do not affect the 0–36 score, and appear only in the internal review report. A sidebar indicator shows Low / Medium / High risk based on the count of red-flag (`0`) observations.
+
+### Candidate sessions
+
+Assessments are auto-saved to `localStorage`. Users can also save explicitly, open a sessions drawer to load/rename/delete/export/import, and start a new session. Session schema is versioned in `js/session.js`.
+
+### Role selector
+
+The Candidate card has a role dropdown (Individual Contributor / Tech Lead / Engineering Manager). The selected role is persisted and included in the internal review report with role-specific emphasis.
+
+### Keyboard shortcuts
+
+When a question group is focused: `1`/`2`/`3` select the left/middle/right rating, `?` opens help, `/` focuses the candidate name.
+
+### Interview timer
+
+A sidebar timer can start/pause/reset. Insert timestamp buttons append `[MM:SS]` to notes and anti-cheat notes; `Ctrl/Cmd+Shift+T` does the same when a notes textarea is focused. Total duration is included in the internal report.
+
+### Candidate comparison
+
+`compare.html` loads two saved sessions and renders scores, verdicts, category breakdowns, piece profiles, anti-cheat risk, and notes side by side.
+
+### Print report
+
+A Print Report button triggers the browser print dialog. `@media print` styles hide chrome, expand details, and show selected radio labels in a clean layout.
 
 ### test_scoring.py
 

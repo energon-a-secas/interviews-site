@@ -24,9 +24,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Role selector** placeholder in the Candidate card (Individual Contributor / Tech Lead / Engineering Manager).
 - Auto-save after form edits with a visible status indicator.
 - Sessions drawer accessible from the Candidate card, plus JSON export/import.
+- **Keyboard shortcuts** — `1`/`2`/`3` to rate a focused question, `?` for help, `/` to focus the candidate name.
+- **Candidate comparison page** (`compare.html`) — side-by-side scores, verdicts, category breakdowns, piece profiles, anti-cheat risk, and notes.
+- **Interview timer** — start/pause/reset timer in the sidebar, insert `[MM:SS]` timestamps into notes, and include total duration in the internal report.
+- **Print-friendly reports** — Print Report button plus `@media print` styles for a clean printed/PDF output.
+- Playwright coverage for sessions, keyboard shortcuts, candidate comparison, roles, timer, and print button.
 
 ### Changed
 
-- `README.md` now describes the Anti-Cheat Observations feature and mentions anti-cheat tells in the file tree.
-- `CLAUDE.md` updated with the new `HELP_CONTENT` count and anti-cheat data structures.
+- `README.md` updated to describe sessions, comparison, keyboard shortcuts, timer, role selector, and print report features; file tree and architecture diagrams expanded.
+- `CLAUDE.md` updated with the new module list and feature sections.
 - `docs/anti-cheat-scenarios.md` cluster rule wording aligned with the count-based risk logic.
