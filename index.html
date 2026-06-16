@@ -615,6 +615,7 @@
             <div class="control-group">
               <label class="control-label" for="cheat-notes">Anti-cheat notes</label>
               <p class="control-description">Optional free-form notes: timing oddities, specific tells, follow-up questions tried, etc.</p>
+              <button class="timestamp-btn" data-target="cheat-notes" type="button">Insert timestamp</button>
               <textarea id="cheat-notes" class="notes-textarea" placeholder="e.g., paused for 8s then gave a polished 90s monologue..."></textarea>
             </div>
           </div>
@@ -669,6 +670,7 @@
         <h2 class="section-title">Interviewer Notes</h2>
         <div class="control-group">
           <p class="control-description">Free-form observations, red flags, highlights, or anything else worth noting</p>
+          <button class="timestamp-btn" data-target="notes" type="button">Insert timestamp</button>
           <textarea id="notes" class="notes-textarea" placeholder="Add your notes here..."></textarea>
         </div>
       </div>
@@ -698,6 +700,16 @@
             <span class="cheat-indicator-value" id="cheat-risk-label">Low</span>
           </div>
         </div>
+
+        <div class="timer-section" id="timer-section">
+          <div class="timer-display" id="timer-display">00:00</div>
+          <div class="timer-controls">
+            <button class="timer-btn" id="timer-start" type="button">Start</button>
+            <button class="timer-btn" id="timer-pause" type="button">Pause</button>
+            <button class="timer-btn timer-btn-secondary" id="timer-reset" type="button">Reset</button>
+          </div>
+        </div>
+
         <div class="sidebar-buttons">
           <button class="download-btn download-btn-primary" onclick="downloadInternal()">Download Internal Review</button>
           <button class="download-btn download-btn-secondary" onclick="downloadFeedback()">Download Candidate Feedback</button>

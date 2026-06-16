@@ -15,9 +15,13 @@ export function generateInternalReport() {
   const role = ROLES[roleKey] || ROLES['individual-contributor'];
 
   let md = '# Interview Assessment — Internal Review\n\n';
+  const duration = window.__timerElapsed || 0;
+  const durationText = duration > 0 ? `${Math.floor(duration / 60)}:${(duration % 60).toString().padStart(2, '0')}` : 'not timed';
+
   md += '**Candidate:** ' + name + '  \n';
   md += '**Role:** ' + role.label + '  \n';
-  md += '**Date:** ' + today() + '  \n\n';
+  md += '**Date:** ' + today() + '  \n';
+  md += '**Interview duration:** ' + durationText + '  \n\n';
   md += '---\n\n## Result Summary\n\n';
   md += '| Metric | Value |\n|--------|-------|\n';
   md += '| **Score** | ' + total + '/36 (' + pct + '%) |\n';

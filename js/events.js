@@ -71,6 +71,7 @@ function resetAssessment() {
   document.getElementById('solve-probes').removeAttribute('open');
   document.getElementById('cheat-probes').removeAttribute('open');
   state.selectedPiece = null;
+  if (typeof window.__setTimerElapsed === 'function') window.__setTimerElapsed(0);
   calculate();
   updateSessionStatus('New session');
 }

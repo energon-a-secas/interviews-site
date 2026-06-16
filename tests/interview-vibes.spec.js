@@ -584,6 +584,26 @@ test.describe('Role Selection', () => {
   });
 });
 
+// ── Timer ──
+
+test.describe('Interview Timer', () => {
+  test('timer starts and increments', async ({ page }) => {
+    await page.goto(PAGE);
+    await page.locator('#timer-start').click();
+    await page.waitForTimeout(1200);
+    await expect(page.locator('#timer-display')).not.toHaveText('00:00');
+  });
+
+  test('insert timestamp button adds [MM:SS] to notes', async ({ page }) => {
+    await page.goto(PAGE);
+    await page.locator('#timer-start').click();
+    await page.waitForTimeout(1500);
+    await page.locator('button[data-target="notes"]').click();
+    const value = await page.locator('#notes').inputValue();
+    expect(value).toMatch(/^\[\d{2}:\d{2}\] /);
+  });
+});
+
 // ── Downloads ──
 
 test.describe('Downloads', () => {
