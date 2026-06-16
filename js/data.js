@@ -594,6 +594,21 @@ export const PIECE_PROFILES = {
   }
 };
 
+export const ROLES = {
+  'individual-contributor': {
+    label: 'Individual Contributor',
+    emphasis: 'technical depth, ownership of delivery, and hands-on problem-solving'
+  },
+  'tech-lead': {
+    label: 'Tech Lead',
+    emphasis: 'technical judgment, communication across teams, and decision accountability'
+  },
+  'engineering-manager': {
+    label: 'Engineering Manager',
+    emphasis: 'communication, stakeholder adaptability, and team-wide impact'
+  }
+};
+
 export const PLACEHOLDER_NAMES = [
   'Han Solo', 'Leia Organa', 'Cassian Andor', 'Jyn Erso',
   'Din Djarin', 'Bail Organa', 'Wedge Antilles', 'Bodhi Rook',

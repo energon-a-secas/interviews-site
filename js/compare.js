@@ -1,6 +1,6 @@
 import { listSessions } from './storage.js';
 import { calculateMetrics } from './scoring.js';
-import { CATEGORIES, PIECE_PROFILES, QUESTION_TEXT } from './data.js';
+import { CATEGORIES, PIECE_PROFILES, ROLES } from './data.js';
 
 function renderOption(session) {
   const name = session.name || 'Unnamed candidate';
@@ -17,7 +17,7 @@ function renderCard(session) {
   const scores = { ...session.scores };
   const metrics = calculateMetrics(scores, session.selectedPiece);
   const profile = PIECE_PROFILES[metrics.active];
-  const roleLabel = session.role ? session.role.replace(/-/g, ' ') : 'individual contributor';
+  const roleLabel = (session.role && ROLES[session.role]) ? ROLES[session.role].label : 'Individual Contributor';
 
   let bars = '';
   for (const key in CATEGORIES) {

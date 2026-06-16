@@ -1,4 +1,4 @@
-import { CATEGORIES, QUESTION_TEXT, SUGGESTIONS, DIMENSION_ORDER, DIM_TO_CAT, PIECE_PROFILES, CHEAT_NAMES } from './data.js';
+import { CATEGORIES, QUESTION_TEXT, SUGGESTIONS, DIMENSION_ORDER, DIM_TO_CAT, PIECE_PROFILES, CHEAT_NAMES, ROLES } from './data.js';
 import { state } from './state.js';
 import { getCandidateName, today, getVal, getLabel, getCatScore, getVerdict, getCheatRisk } from './utils.js';
 import { calculatePieceMatches, getBestPiece } from './scoring.js';
@@ -11,8 +11,12 @@ export function generateInternalReport() {
   const pct = Math.round((total / 36) * 100);
   const verdict = getVerdict(pct);
 
+  const roleKey = document.getElementById('role-select') ? document.getElementById('role-select').value : 'individual-contributor';
+  const role = ROLES[roleKey] || ROLES['individual-contributor'];
+
   let md = '# Interview Assessment — Internal Review\n\n';
   md += '**Candidate:** ' + name + '  \n';
+  md += '**Role:** ' + role.label + '  \n';
   md += '**Date:** ' + today() + '  \n\n';
   md += '---\n\n## Result Summary\n\n';
   md += '| Metric | Value |\n|--------|-------|\n';
@@ -100,6 +104,8 @@ export function generateInternalReport() {
   else if (pct >= 50) md += '**Hold for further evaluation.** Consider a second internal interview or technical assessment before client exposure.' + (weakNames ? ' Key areas: ' + weakNames + '.' : '') + '\n';
   else if (pct >= 33) md += '**Do not proceed at this time.** Significant gaps identified.' + (weakNames ? ' Focus areas: ' + weakNames + '.' : '') + ' Recommend targeted preparation before reconsidering.\n';
   else md += '**Do not proceed.** Candidate is not ready for client interviews. Consider alternative placement or an extended preparation period.\n';
+
+  md += '\n*For the **' + role.label + '** role, pay special attention to ' + role.emphasis + '.*\n';
 
   const risk = getCheatRisk();
   md += '\n---\n\n## Anti-Cheat Signals\n\n';

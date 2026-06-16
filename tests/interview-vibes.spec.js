@@ -14,16 +14,25 @@ async function setQuestion(page, name, value) {
   await pickRadio(page, `${name}-${suffix}`);
 }
 
-/** Set all 18 base questions to a value */
+
+
+/** Set all 18 base questions to a value via JS (faster and avoids auto-advance) */
 async function setAllBase(page, value) {
+  const suffix = value === 2 ? 'a' : value === 1 ? 'b' : 'c';
   const names = [
     'comm-1','comm-2','comm-3','story-1','story-2','story-3',
     'tech-1','tech-2','tech-3','own-1','own-2','own-3',
     'solve-1','solve-2','solve-3','vibe-1','vibe-2','vibe-3',
   ];
-  for (const name of names) {
-    await setQuestion(page, name, value);
-  }
+  await page.evaluate(({ names, suffix }) => {
+    names.forEach(name => {
+      const radio = document.querySelector(`input[name="${name}"][id$="-${suffix}"]`);
+      if (radio && !radio.checked) {
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+  }, { names, suffix });
 }
 
 test.beforeEach(async ({ page }) => {
@@ -550,6 +559,28 @@ test.describe('Sessions', () => {
       return JSON.parse(localStorage.getItem('vibe-check-sessions') || '[]');
     });
     expect(sessions.length).toBe(0);
+  });
+});
+
+// ── Roles ──
+
+test.describe('Role Selection', () => {
+  test('role is saved and restored with the session', async ({ page }) => {
+    await page.goto(PAGE);
+    await page.locator('#candidate-name').fill('Role Test');
+    await page.locator('#role-select').selectOption('engineering-manager');
+    await page.locator('#save-session-btn').click();
+
+    await page.reload();
+    await expect(page.locator('#role-select')).toHaveValue('engineering-manager');
+  });
+
+  test('internal report includes role context', async ({ page }) => {
+    await page.goto(PAGE);
+    await page.locator('#role-select').selectOption('tech-lead');
+    const md = await page.evaluate(() => generateInternalReport());
+    expect(md).toContain('**Role:** Tech Lead');
+    expect(md).toContain('For the **Tech Lead** role');
   });
 });
 
