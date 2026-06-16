@@ -26,6 +26,12 @@ async function setAllBase(page, value) {
   }
 }
 
+test.beforeEach(async ({ page }) => {
+  await page.goto(PAGE);
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+});
+
 // ── Page Load & Structure ──
 
 test.describe('Page Load', () => {
@@ -369,6 +375,44 @@ test.describe('Help Modal', () => {
     await expect(page.locator('#help-overlay')).toHaveClass(/visible/);
     await page.locator('#help-overlay').click({ position: { x: 10, y: 10 } });
     await expect(page.locator('#help-overlay')).not.toHaveClass(/visible/);
+  });
+});
+
+// ── Keyboard Shortcuts ──
+
+test.describe('Keyboard Shortcuts', () => {
+  test('focuses candidate name with /', async ({ page }) => {
+    await page.goto(PAGE);
+    await page.keyboard.press('/');
+    await expect(page.locator('#candidate-name')).toBeFocused();
+  });
+
+  test('rates a focused question with 1/2/3', async ({ page }) => {
+    await page.goto(PAGE);
+    const group = page.locator('.control-group').filter({ has: page.locator('input[name="comm-1"]') });
+    await group.focus();
+    await expect(group).toBeFocused();
+
+    await page.keyboard.press('1');
+    await expect(page.locator('input[name="comm-1"][value="2"]')).toBeChecked();
+    await expect(page.locator('#score-total')).toHaveText('19');
+
+    await page.keyboard.press('2');
+    await expect(page.locator('input[name="comm-1"][value="1"]')).toBeChecked();
+    await expect(page.locator('#score-total')).toHaveText('18');
+
+    await page.keyboard.press('3');
+    await expect(page.locator('input[name="comm-1"][value="0"]')).toBeChecked();
+    await expect(page.locator('#score-total')).toHaveText('17');
+  });
+
+  test('opens help for the focused question with ?', async ({ page }) => {
+    await page.goto(PAGE);
+    const group = page.locator('.control-group').filter({ has: page.locator('input[name="story-1"]') });
+    await group.focus();
+    await page.keyboard.press('?');
+    await expect(page.locator('#help-overlay')).toHaveClass(/visible/);
+    await expect(page.locator('#help-title')).toContainText('Narrative Consistency');
   });
 });
 

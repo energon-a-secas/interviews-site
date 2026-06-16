@@ -482,3 +482,5 @@ button:active, .btn:active {
   .candidate-name-group, .candidate-role-group { min-width: 0; width: 100%; }
   .sessions-drawer { width: 100%; max-width: 100%; }
 }
+
+.keyboard-hint { display: block; margin-top: 6px; font-size: 0.9em; opacity: 0.7; }
