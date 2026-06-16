@@ -604,6 +604,15 @@ test.describe('Interview Timer', () => {
   });
 });
 
+// ── Print ──
+
+test.describe('Print Report', () => {
+  test('Print Report button is visible', async ({ page }) => {
+    await page.goto(PAGE);
+    await expect(page.locator('button').filter({ hasText: 'Print Report' })).toBeVisible();
+  });
+});
+
 // ── Downloads ──
 
 test.describe('Downloads', () => {

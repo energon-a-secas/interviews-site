@@ -513,3 +513,45 @@ button:active, .btn:active {
   font-family: inherit; font-size: 0.8em; cursor: pointer; transition: all var(--dur);
 }
 .timestamp-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+/* ── Print styles ─────────────────────────────────────────────────── */
+@media print {
+  body { background: #fff; color: #000; }
+  .header-bar nav, .header-home, .score-sidebar, .session-actions,
+  .help-trigger, .timestamp-btn, .timer-section, .reset-button,
+  .sidebar-buttons, .info-footer, .sessions-overlay, .help-overlay,
+  .skip-link, .piece-auto-label a { display: none !important; }
+
+  .header-bar { background: none; border-bottom: 1px solid #ccc; position: static; }
+  .header-logo h1, .header-subtitle { color: #000; }
+  .main-container { display: block; max-width: 100%; padding: 0; }
+  .content-area { max-width: 100%; }
+  .card { background: #fff; border: 1px solid #ddd; color: #000; break-inside: avoid; margin-bottom: 16px; page-break-inside: avoid; }
+  .section-title { color: #000; }
+  .control-description { color: #333; }
+  .control-label { color: #000; }
+
+  details { display: block !important; }
+  summary { list-style: none; }
+  .probe-toggle::before { display: none; }
+
+  .radio-group { display: flex; gap: 8px; }
+  .radio-option input[type="radio"] { display: none; }
+  .radio-option label {
+    border: 1px solid #999; background: #fff; color: #000; padding: 6px 10px; font-size: 0.85em;
+  }
+  .radio-option input[type="radio"]:checked + label {
+    background: #000 !important; color: #fff !important; border-color: #000; box-shadow: none;
+  }
+
+  .piece-grid { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .piece-tile { border: 1px solid #999; background: #fff; }
+  .piece-tile.selected { background: #000; color: #fff; border-color: #000; }
+
+  .notes-textarea { background: #fff; border: 1px solid #999; color: #000; }
+
+  .category-badge { background: #eee; color: #000; }
+  .category-badge.score-high { background: #d4edda; color: #155724; }
+  .category-badge.score-mid { background: #fff3cd; color: #856404; }
+  .category-badge.score-low { background: #f8d7da; color: #721c24; }
+}
