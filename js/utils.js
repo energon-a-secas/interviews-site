@@ -35,11 +35,15 @@ export function getVerdict(pct) {
   return VERDICTS.find(v => pct >= v.min) || VERDICTS[VERDICTS.length - 1];
 }
 
-export function getCheatRisk() {
-  const red = CHEAT_NAMES.filter(n => getVal(n) === 0).length;
+export function getCheatRiskFromScores(scores) {
+  const red = CHEAT_NAMES.filter(n => (scores && typeof scores[n] === 'number' ? scores[n] : getVal(n)) === 0).length;
   if (red === 0) return { label: 'Low', cls: 'risk-low' };
   if (red <= 2) return { label: 'Medium', cls: 'risk-medium' };
   return { label: 'High', cls: 'risk-high' };
+}
+
+export function getCheatRisk() {
+  return getCheatRiskFromScores(null);
 }
 
 export function downloadMarkdown(content, filename) {

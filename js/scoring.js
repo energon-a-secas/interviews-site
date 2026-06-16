@@ -1,6 +1,6 @@
 import { CATEGORIES, DIMENSION_ORDER, DIM_TO_CAT, PIECE_PROFILES } from './data.js';
 import { state } from './state.js';
-import { getVal, getCatScore, getVerdict, getCheatRisk } from './utils.js';
+import { getVal, getCatScore, getVerdict, getCheatRisk, getCheatRiskFromScores } from './utils.js';
 
 export function dimMatchScore(actual, expected) {
   if (expected === 'high') return actual >= 5 ? 2 : actual >= 4 ? 1 : 0;
@@ -29,6 +29,32 @@ export function getBestPiece(matches) {
     if (matches[p] > bestScore) { bestScore = matches[p]; best = p; }
   }
   return best;
+}
+
+export function calculateMetrics(scores, selectedPiece) {
+  const catScores = {};
+  let total = 0;
+  for (const key in CATEGORIES) {
+    catScores[key] = CATEGORIES[key].questions.reduce((s, q) => s + (scores[q] !== undefined ? scores[q] : 1), 0);
+    total += catScores[key];
+  }
+  const pct = Math.round((total / 36) * 100);
+  const verdict = getVerdict(pct);
+  const matches = {};
+  for (const p in PIECE_PROFILES) {
+    const profile = PIECE_PROFILES[p];
+    let matchTotal = 0;
+    DIMENSION_ORDER.forEach(dim => {
+      matchTotal += dimMatchScore(catScores[DIM_TO_CAT[dim]], profile.dims[dim]);
+    });
+    matches[p] = Math.round((matchTotal / 12) * 100);
+  }
+  const best = getBestPiece(matches);
+  const active = selectedPiece || best;
+  return {
+    catScores, total, pct, verdict, matches, best, active,
+    risk: getCheatRiskFromScores(scores)
+  };
 }
 
 export function updatePieceMatrix() {
