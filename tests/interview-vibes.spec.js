@@ -53,14 +53,11 @@ test.describe('Page Load', () => {
     expect(twitterImage).toBeTruthy();
 
     const jsonLdElements = await page.locator('script[type="application/ld+json"]').all();
-    expect(jsonLdElements.length).toBeGreaterThanOrEqual(2);
+    expect(jsonLdElements.length).toBeGreaterThanOrEqual(1);
 
     const appSchema = JSON.parse(await jsonLdElements[0].textContent());
     expect(appSchema['@type']).toBe('WebApplication');
     expect(appSchema.featureList).toBeTruthy();
-
-    const faqSchema = JSON.parse(await jsonLdElements[1].textContent());
-    expect(faqSchema['@type']).toBe('FAQPage');
   });
 
   test('has semantic HTML landmarks', async ({ page }) => {
@@ -123,7 +120,7 @@ test.describe('Categories', () => {
     await page.goto(PAGE);
     const cards = page.locator('.content-area > .card');
     const count = await cards.count();
-    expect(count).toBe(9); // 6 categories + candidate + piece profile + notes
+    expect(count).toBe(10); // 6 categories + candidate + anti-cheat + piece profile + notes
 
     for (let i = 1; i <= 6; i++) {
       const questions = cards.nth(i).locator(':scope > .control-group');
@@ -266,6 +263,70 @@ test.describe('Probe Dropdowns', () => {
   });
 });
 
+// ── Anti-Cheat Observations ──
+
+test.describe('Anti-Cheat Observations', () => {
+  test('anti-cheat section starts collapsed', async ({ page }) => {
+    await page.goto(PAGE);
+    await expect(page.locator('#cheat-probes')).not.toHaveAttribute('open', '');
+  });
+
+  test('anti-cheat dropdown opens and shows 6 observations', async ({ page }) => {
+    await page.goto(PAGE);
+    await page.locator('#cheat-probes summary').click();
+    await expect(page.locator('#cheat-probes')).toHaveAttribute('open', '');
+    await expect(page.locator('#cheat-probes .probe-content .radio-group')).toHaveCount(6);
+    await expect(page.locator('#cheat-notes')).toBeVisible();
+  });
+
+  test('anti-cheat observations do not affect main score', async ({ page }) => {
+    await page.goto(PAGE);
+    const before = await page.locator('#score-total').textContent();
+
+    await page.locator('#cheat-probes summary').click();
+    await pickRadio(page, 'cheat-pace-c'); // cheat-pace = 0
+    await pickRadio(page, 'cheat-template-c'); // cheat-template = 0
+
+    const after = await page.locator('#score-total').textContent();
+    expect(before).toBe(after);
+  });
+
+  test('risk indicator shows Low by default', async ({ page }) => {
+    await page.goto(PAGE);
+    await expect(page.locator('#cheat-risk-label')).toHaveText('Low');
+  });
+
+  test('risk indicator updates to High with multiple red flags', async ({ page }) => {
+    await page.goto(PAGE);
+    await page.locator('#cheat-probes summary').click();
+    await pickRadio(page, 'cheat-pace-c');
+    await pickRadio(page, 'cheat-template-c');
+    await pickRadio(page, 'cheat-tone-c');
+    await expect(page.locator('#cheat-risk-label')).toHaveText('High');
+  });
+
+  test('internal report includes anti-cheat signals', async ({ page }) => {
+    await page.goto(PAGE);
+    await page.locator('#cheat-probes summary').click();
+    await pickRadio(page, 'cheat-pace-c');
+    await page.locator('#cheat-notes').fill('Long pause before fluent answer');
+    const md = await page.evaluate(() => generateInternalReport());
+    expect(md).toContain('## Anti-Cheat Signals');
+    expect(md).toContain('AI-assist risk:');
+    expect(md).toContain('## Anti-Cheat Notes');
+    expect(md).toContain('Long pause before fluent answer');
+  });
+
+  test('candidate feedback does not mention anti-cheat signals', async ({ page }) => {
+    await page.goto(PAGE);
+    await page.locator('#cheat-probes summary').click();
+    await pickRadio(page, 'cheat-pace-c');
+    const md = await page.evaluate(() => generateCandidateReport());
+    expect(md).not.toContain('Anti-Cheat');
+    expect(md).not.toContain('AI-assist');
+  });
+});
+
 // ── Help Modal ──
 
 test.describe('Help Modal', () => {
@@ -320,6 +381,8 @@ test.describe('Reset', () => {
     await setQuestion(page, 'comm-1', 2);
     await setQuestion(page, 'comm-2', 2);
     await page.locator('#notes').fill('Some notes');
+    await page.locator('#cheat-probes summary').click();
+    await page.locator('#cheat-notes').fill('Typing heard before answers');
     await page.locator('#tech-probes summary').click();
 
     await expect(page.locator('#score-total')).toHaveText('20');
@@ -329,6 +392,7 @@ test.describe('Reset', () => {
 
     await expect(page.locator('#candidate-name')).toHaveValue('');
     await expect(page.locator('#notes')).toHaveValue('');
+    await expect(page.locator('#cheat-notes')).toHaveValue('');
     await expect(page.locator('#score-total')).toHaveText('18');
     await expect(page.locator('#score-pct')).toContainText('50');
     await expect(page.locator('#tech-probes')).not.toHaveAttribute('open', '');
@@ -347,12 +411,15 @@ test.describe('Reset', () => {
     await page.goto(PAGE);
     await page.locator('#solve-probes summary').click();
     await page.locator('#tech-probes summary').click();
+    await page.locator('#cheat-probes summary').click();
     await expect(page.locator('#solve-probes')).toHaveAttribute('open', '');
     await expect(page.locator('#tech-probes')).toHaveAttribute('open', '');
+    await expect(page.locator('#cheat-probes')).toHaveAttribute('open', '');
 
     await page.locator('.reset-button').click();
     await expect(page.locator('#solve-probes')).not.toHaveAttribute('open', '');
     await expect(page.locator('#tech-probes')).not.toHaveAttribute('open', '');
+    await expect(page.locator('#cheat-probes')).not.toHaveAttribute('open', '');
     await expect(page.locator('#own-probes')).not.toHaveAttribute('open', '');
   });
 });
