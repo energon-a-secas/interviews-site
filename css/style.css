@@ -306,6 +306,20 @@ button:active, .btn:active {
   transition-duration: var(--dur-fast);
 }
 
+/* ── Anti-cheat indicator ─────────────────────────────────────────── */
+.cheat-indicator {
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  text-align: center; display: flex;
+  align-items: center; justify-content: center; gap: 8px;
+  font-size: 0.82em; opacity: 0.9;
+}
+.cheat-indicator-label { opacity: 0.7; }
+.cheat-indicator-value { font-weight: 600; }
+.cheat-indicator-value.risk-low    { color: #4ade80; }
+.cheat-indicator-value.risk-medium { color: #fbbf24; }
+.cheat-indicator-value.risk-high   { color: #f87171; }
+
 /* ── Footer ───────────────────────────────────────────────────────── */
 .info-footer {
   text-align: center; padding: 20px var(--space-6) 28px;

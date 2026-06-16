@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <title>Vibe Check | Behavioral Interview Scorecard</title>
+  <title>Vibe Check | Behavioral Interview Aid</title>
   <meta name="description" content="Score candidates across 18 behavioral questions in 6 categories. Auto-detect team archetypes with the Core Five. Download markdown reports">
   <meta property="og:title" content="Vibe Check: Behavioral Interview Scorecard">
   <meta property="og:description" content="Score candidates across 18 behavioral questions in 6 categories. Auto-detect team archetypes, download markdown reports">
@@ -25,9 +25,10 @@
   <meta property="og:image" content="https://interviews.neorgon.com/og-preview.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <link rel="icon" type="image/x-icon" href="https://pub-b597cd281a384f98a47e1f043a6c4160.r2.dev/v1.0.0/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="icon" href="https://pub-b597cd281a384f98a47e1f043a6c4160.r2.dev/v1.0.0/favicon.ico" />
   <link rel="stylesheet" href="https://pub-b597cd281a384f98a47e1f043a6c4160.r2.dev/v1.0.0/styles/base.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -67,6 +68,7 @@
       "Real-time scoring with pass probability percentage",
       "Core Five piece profile — auto-detect candidate archetype",
       "Optional probe questions for deeper investigation",
+      "Anti-cheat observations to flag AI-assisted or coached answers",
       "Downloadable internal review report (Markdown)",
       "Downloadable candidate feedback report (Markdown)"
     ],
@@ -505,6 +507,103 @@
         </div>
       </div>
 
+      <!-- Anti-Cheat Observations -->
+      <div class="card">
+        <h2 class="section-title">Anti-Cheat Observations</h2>
+        <p class="control-description">Behavioral tells that may indicate AI-assisted or coached answers. These are not scored; use them to guide follow-up questions and the internal report.</p>
+
+        <details class="probe-dropdown" id="cheat-probes">
+          <summary class="probe-toggle">AI / Coaching Tells <span class="probe-tag" id="cheat-probe-tag">(Optional)</span></summary>
+          <div class="probe-content">
+            <p class="probe-hint">Check tells as you observe them during the interview. A single tell means little; look for clusters.</p>
+
+            <div class="control-group">
+              <div class="control-header">
+                <label class="control-label">Long pause, then suddenly fluent / expert answer?</label>
+                <button class="help-trigger" onclick="showHelp('cheat-pace')" type="button" aria-label="Show guidance">?</button>
+              </div>
+              <p class="control-description">Unnatural silence followed by a polished, verbose response</p>
+              <div class="radio-group">
+                <div class="radio-option opt-good"><input type="radio" id="cheat-pace-a" name="cheat-pace" value="2"><label for="cheat-pace-a">Consistent</label></div>
+                <div class="radio-option"><input type="radio" id="cheat-pace-b" name="cheat-pace" value="1" checked><label for="cheat-pace-b">Slight lag</label></div>
+                <div class="radio-option opt-bad"><input type="radio" id="cheat-pace-c" name="cheat-pace" value="0"><label for="cheat-pace-c">Sudden shift</label></div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <div class="control-header">
+                <label class="control-label">Answers feel like a generic STAR or blog-post template?</label>
+                <button class="help-trigger" onclick="showHelp('cheat-template')" type="button" aria-label="Show guidance">?</button>
+              </div>
+              <p class="control-description">Polished structure without personal texture or specifics</p>
+              <div class="radio-group">
+                <div class="radio-option opt-good"><input type="radio" id="cheat-template-a" name="cheat-template" value="2"><label for="cheat-template-a">Specific</label></div>
+                <div class="radio-option"><input type="radio" id="cheat-template-b" name="cheat-template" value="1" checked><label for="cheat-template-b">Some</label></div>
+                <div class="radio-option opt-bad"><input type="radio" id="cheat-template-c" name="cheat-template" value="0"><label for="cheat-template-c">Generic</label></div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <div class="control-header">
+                <label class="control-label">Tone or vocabulary shifts dramatically mid-interview?</label>
+                <button class="help-trigger" onclick="showHelp('cheat-tone')" type="button" aria-label="Show guidance">?</button>
+              </div>
+              <p class="control-description">Casual answers that suddenly turn formal or verbose</p>
+              <div class="radio-group">
+                <div class="radio-option opt-good"><input type="radio" id="cheat-tone-a" name="cheat-tone" value="2"><label for="cheat-tone-a">Consistent</label></div>
+                <div class="radio-option"><input type="radio" id="cheat-tone-b" name="cheat-tone" value="1" checked><label for="cheat-tone-b">Occasional</label></div>
+                <div class="radio-option opt-bad"><input type="radio" id="cheat-tone-c" name="cheat-tone" value="0"><label for="cheat-tone-c">Mismatch</label></div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <div class="control-header">
+                <label class="control-label">Looks away from camera / appears to read or type before answering?</label>
+                <button class="help-trigger" onclick="showHelp('cheat-device')" type="button" aria-label="Show guidance">?</button>
+              </div>
+              <p class="control-description">Second-screen glances, typing, or mouse clicks before answering</p>
+              <div class="radio-group">
+                <div class="radio-option opt-good"><input type="radio" id="cheat-device-a" name="cheat-device" value="2"><label for="cheat-device-a">Engaged</label></div>
+                <div class="radio-option"><input type="radio" id="cheat-device-b" name="cheat-device" value="1" checked><label for="cheat-device-b">Briefly</label></div>
+                <div class="radio-option opt-bad"><input type="radio" id="cheat-device-c" name="cheat-device" value="0"><label for="cheat-device-c">Sustained</label></div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <div class="control-header">
+                <label class="control-label">Struggles when asked an off-topic or curveball follow-up?</label>
+                <button class="help-trigger" onclick="showHelp('cheat-offtopic')" type="button" aria-label="Show guidance">?</button>
+              </div>
+              <p class="control-description">Rehearsed answers break when the conversation pivots</p>
+              <div class="radio-group">
+                <div class="radio-option opt-good"><input type="radio" id="cheat-offtopic-a" name="cheat-offtopic" value="2"><label for="cheat-offtopic-a">Handles it</label></div>
+                <div class="radio-option"><input type="radio" id="cheat-offtopic-b" name="cheat-offtopic" value="1" checked><label for="cheat-offtopic-b">Hesitates</label></div>
+                <div class="radio-option opt-bad"><input type="radio" id="cheat-offtopic-c" name="cheat-offtopic" value="0"><label for="cheat-offtopic-c">Falls apart</label></div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <div class="control-header">
+                <label class="control-label">Repeats question wording back verbatim before answering?</label>
+                <button class="help-trigger" onclick="showHelp('cheat-echo')" type="button" aria-label="Show guidance">?</button>
+              </div>
+              <p class="control-description">Echoing the prompt can be a sign of reading generated text</p>
+              <div class="radio-group">
+                <div class="radio-option opt-good"><input type="radio" id="cheat-echo-a" name="cheat-echo" value="2"><label for="cheat-echo-a">No</label></div>
+                <div class="radio-option"><input type="radio" id="cheat-echo-b" name="cheat-echo" value="1" checked><label for="cheat-echo-b">Sometimes</label></div>
+                <div class="radio-option opt-bad"><input type="radio" id="cheat-echo-c" name="cheat-echo" value="0"><label for="cheat-echo-c">Often</label></div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="cheat-notes">Anti-cheat notes</label>
+              <p class="control-description">Optional free-form notes: timing oddities, specific tells, follow-up questions tried, etc.</p>
+              <textarea id="cheat-notes" class="notes-textarea" placeholder="e.g., paused for 8s then gave a polished 90s monologue..."></textarea>
+            </div>
+          </div>
+        </details>
+      </div>
+
       <!-- Piece Profile -->
       <div class="card" id="piece-card">
         <h2 class="section-title">Piece Profile</h2>
@@ -576,6 +675,10 @@
           <div class="piece-indicator">
             <span class="piece-indicator-icon" id="sidebar-piece-icon">&#9819;</span>
             <span class="piece-indicator-text" id="sidebar-piece-name">Queen (67%)</span>
+          </div>
+          <div class="cheat-indicator" id="cheat-indicator" title="Click to jump to anti-cheat observations" onclick="document.getElementById('cheat-probes').scrollIntoView({behavior:'smooth'}); document.getElementById('cheat-probes').open = true;">
+            <span class="cheat-indicator-label">AI-assist risk:</span>
+            <span class="cheat-indicator-value" id="cheat-risk-label">Low</span>
           </div>
         </div>
         <div class="sidebar-buttons">

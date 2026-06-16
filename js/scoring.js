@@ -1,6 +1,6 @@
 import { CATEGORIES, DIMENSION_ORDER, DIM_TO_CAT, PIECE_PROFILES } from './data.js';
 import { state } from './state.js';
-import { getVal, getCatScore, getVerdict } from './utils.js';
+import { getVal, getCatScore, getVerdict, getCheatRisk } from './utils.js';
 
 export function dimMatchScore(actual, expected) {
   if (expected === 'high') return actual >= 5 ? 2 : actual >= 4 ? 1 : 0;
@@ -103,6 +103,13 @@ export function updateProbeIndicators() {
   }
 }
 
+export function updateCheatIndicator() {
+  const risk = getCheatRisk();
+  const el = document.getElementById('cheat-risk-label');
+  el.textContent = risk.label;
+  el.className = 'cheat-indicator-value ' + risk.cls;
+}
+
 export function calculate() {
   let total = 0;
   for (const key in CATEGORIES) {
@@ -122,4 +129,5 @@ export function calculate() {
   document.getElementById('score-card').className = 'score-card ' + verdict.cls;
   updateProbeIndicators();
   updatePieceMatrix();
+  updateCheatIndicator();
 }

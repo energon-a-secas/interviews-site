@@ -1,4 +1,4 @@
-import { PLACEHOLDER_NAMES, VERDICTS } from './data.js';
+import { PLACEHOLDER_NAMES, VERDICTS, CHEAT_NAMES } from './data.js';
 
 export function getPlaceholderName() {
   return PLACEHOLDER_NAMES[Math.floor(Math.random() * PLACEHOLDER_NAMES.length)];
@@ -33,6 +33,13 @@ export function getCatScore(catKey, CATEGORIES) {
 
 export function getVerdict(pct) {
   return VERDICTS.find(v => pct >= v.min) || VERDICTS[VERDICTS.length - 1];
+}
+
+export function getCheatRisk() {
+  const red = CHEAT_NAMES.filter(n => getVal(n) === 0).length;
+  if (red === 0) return { label: 'Low', cls: 'risk-low' };
+  if (red <= 2) return { label: 'Medium', cls: 'risk-medium' };
+  return { label: 'High', cls: 'risk-high' };
 }
 
 export function downloadMarkdown(content, filename) {

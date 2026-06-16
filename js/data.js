@@ -33,10 +33,21 @@ export const QUESTION_TEXT = {
   'solve-p2': 'Do they understand what breaks when you change a constraint?',
   'solve-p3': 'Can they explain when NOT to use a pattern they mentioned?',
   'solve-p4': 'Can they simplify an over-engineered proposal?',
-  'solve-p5': 'Can they walk through debugging a system they didn\'t build?'
+  'solve-p5': 'Can they walk through debugging a system they didn\'t build?',
+  'cheat-pace':     'Long pause, then suddenly fluent / expert answer?',
+  'cheat-template': 'Answers feel like a generic STAR or blog-post template?',
+  'cheat-tone':     'Tone or vocabulary shifts dramatically mid-interview?',
+  'cheat-device':   'Looks away from camera / appears to read or type before answering?',
+  'cheat-offtopic': 'Struggles when asked an off-topic or curveball follow-up?',
+  'cheat-echo':     'Repeats question wording back verbatim before answering?'
 };
 
-export const PROBE_NAMES = ['tech-p1', 'tech-p2', 'own-p1', 'solve-p1', 'solve-p2', 'solve-p3', 'solve-p4', 'solve-p5'];
+export const CHEAT_NAMES = [
+  'cheat-pace', 'cheat-template', 'cheat-tone',
+  'cheat-device', 'cheat-offtopic', 'cheat-echo'
+];
+
+export const PROBE_NAMES = ['tech-p1', 'tech-p2', 'own-p1', 'solve-p1', 'solve-p2', 'solve-p3', 'solve-p4', 'solve-p5', ...CHEAT_NAMES];
 
 export const HELP_CONTENT = {
   'comm-1': {
@@ -393,6 +404,90 @@ export const HELP_CONTENT = {
       'Starts with data: logs, metrics, recent changes — not guessing',
       'Has a structured approach: reproduce, isolate, identify, fix',
       'Asks smart questions about the system before proposing solutions'
+    ]
+  },
+  'cheat-pace': {
+    title: 'Lag Then Fluent Answer',
+    objective: 'AI-generated answers often arrive after an unnatural pause while the candidate reads or generates a response.',
+    ask: [
+      'After a polished answer, ask for a one-sentence summary',
+      'Ask a narrow follow-up immediately, without giving thinking time',
+      '"Can you say that again in simpler words?"'
+    ],
+    lookFor: [
+      'Long silence followed by a perfectly structured, jargon-dense answer',
+      'Cannot shorten or rephrase the answer when asked',
+      'Inconsistent pacing: simple questions get long delays, complex ones get instant answers'
+    ]
+  },
+  'cheat-template': {
+    title: 'Generic STAR / Blog-Post Answers',
+    objective: 'Memorized or AI-generated responses often sound polished but lack personal texture.',
+    ask: [
+      '"Skip the setup. What exactly did you type or click?"',
+      '"What was the worst mistake you made on that project?"',
+      '"Name one person who was in the room and what they did."'
+    ],
+    lookFor: [
+      'Buzzword-heavy STAR monologues with no names, dates, or emotions',
+      'Answers feel like they could describe any project, not theirs',
+      'Cannot produce messy or failure details'
+    ]
+  },
+  'cheat-tone': {
+    title: 'Tone or Vocabulary Shift',
+    objective: 'A sudden jump in formality or vocabulary can mean the candidate switched from speaking to reading generated text.',
+    ask: [
+      'Ask the same question again later in different words',
+      '"Can you explain that the way you\'d tell a teammate?"',
+      'Switch from technical to casual and see if they follow'
+    ],
+    lookFor: [
+      'Casual, hesitant speech becomes formal and verbose mid-answer',
+      'Uses words or phrases that do not match their earlier style',
+      'Two answers to the same topic sound like different authors'
+    ]
+  },
+  'cheat-device': {
+    title: 'Screen / Device Behavior',
+    objective: 'Glancing at a second screen, typing, or mouse clicks before answering can indicate external assistance.',
+    ask: [
+      '"Can you look at the camera while you walk me through that?"',
+      'Ask an unexpected off-topic question right after they look away',
+      'Request that they share their screen if the interview format allows'
+    ],
+    lookFor: [
+      'Repeatedly looks away from the camera before or during answers',
+      'Keyboard or mouse sounds audible during silences',
+      'Answers start only after typing stops'
+    ]
+  },
+  'cheat-offtopic': {
+    title: 'Off-Topic / Curveball Follow-Up',
+    objective: 'Rehearsed and generated answers break when the conversation pivots away from the prepared script.',
+    ask: [
+      '"What did the room look like during that incident?"',
+      '"What did you have for lunch that day?" (then return to the topic)',
+      '"Actually, let me reframe: what would you have done if you were the only person involved?"'
+    ],
+    lookFor: [
+      'Keeps answering the original question as if the new one was not asked',
+      'Panics, repeats the same point, or stalls',
+      'Cannot adapt the story to the new angle'
+    ]
+  },
+  'cheat-echo': {
+    title: 'Echoing the Question Prompt',
+    objective: 'Candidates reading generated text sometimes start by repeating key words from the question, as if feeding a prompt back.',
+    ask: [
+      'Rephrase the same question several times and compare openings',
+      'Ask a very long question, then a very short version of it',
+      'Interrupt and ask them to start with the answer, not the question'
+    ],
+    lookFor: [
+      'Answers begin by mirroring exact words from the question',
+      'Restates the question even when it was simple',
+      'Echoing persists across different questions'
     ]
   }
 };

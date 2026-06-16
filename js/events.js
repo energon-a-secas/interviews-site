@@ -47,6 +47,7 @@ function resetAssessment() {
   document.getElementById('candidate-name').value = '';
   document.getElementById('candidate-name').placeholder = getPlaceholderName();
   document.getElementById('notes').value = '';
+  document.getElementById('cheat-notes').value = '';
   const allGroups = Object.keys(CATEGORIES).reduce((arr, k) => arr.concat(CATEGORIES[k].questions), []).concat(PROBE_NAMES);
   allGroups.forEach(name => {
     const mid = document.querySelector(`input[name="${name}"][value="1"]`);
@@ -55,6 +56,7 @@ function resetAssessment() {
   document.getElementById('tech-probes').removeAttribute('open');
   document.getElementById('own-probes').removeAttribute('open');
   document.getElementById('solve-probes').removeAttribute('open');
+  document.getElementById('cheat-probes').removeAttribute('open');
   state.selectedPiece = null;
   calculate();
 }
@@ -153,4 +155,6 @@ export function initEvents() {
   window.downloadInternal = downloadInternal;
   window.downloadFeedback = downloadFeedback;
   window.resetAssessment = resetAssessment;
+  window.generateInternalReport = generateInternalReport;
+  window.generateCandidateReport = generateCandidateReport;
 }
