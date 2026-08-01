@@ -31,35 +31,8 @@ body {
   display: flex; flex-direction: column;
 }
 
-/* ── Header ───────────────────────────────────────────────────────── */
-.header-bar {
-  background: linear-gradient(in oklch 135deg, #B015B0 0%, #3D0080 50%, #040714 100%);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-subtle);
-  padding: 0 var(--space-6);
-  height: 68px;
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-}
-
-.header-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-
-.header-logo-img {
-  height: 36px; width: auto; flex-shrink: 0;
-  filter: brightness(0) invert(1);
-  transition: transform 0.3s var(--ease-snap);
-  display: block;
-}
-.header-logo-img:hover { transform: scale(1.14) rotate(-9deg); }
-
-.header-logo h1 { font-size: 1.2em; font-weight: 600; color: var(--text-primary); letter-spacing: .5px; }
-.header-subtitle { font-size: .82em; color: rgba(255,255,255,.72); font-weight: 500; margin-top: 3px; }
-
 /* ── Nav (with-nav pattern) ──────────────────────────────────────── */
-nav { display: flex; gap: 5px; margin-left: auto; }
+nav { display: flex; gap: 5px; }
 nav a {
   color: var(--text-primary); text-decoration: none;
   padding: 8px 16px; border-radius: var(--radius-sm);
@@ -70,18 +43,6 @@ nav a:hover { background: rgba(255,255,255,0.1); }
 nav a.active { background: var(--accent); }
 nav a.outline { background: var(--bg); border: 1px solid var(--bg); }
 nav a.outline:hover { background: #11151f; }
-
-/* ── Home icon (with-nav pattern) ────────────────────────────────── */
-.header-home {
-  display: flex; align-items: center;
-  margin-left: 5px;
-  padding: 5px;
-  color: rgba(255,255,255,0.9); text-decoration: none;
-  border-radius: var(--radius-sm);
-  transition: color var(--dur), background var(--dur); flex-shrink: 0;
-}
-.header-home:hover { color: #fff; background: rgba(255,255,255,0.12); }
-.header-home svg { width: 34px; height: 34px; display: block; }
 
 /* ── Layout ───────────────────────────────────────────────────────── */
 .main-container { display: flex; max-width: 1400px; margin: 0 auto; padding: 30px; gap: 30px; width: 100%; }
@@ -378,7 +339,6 @@ button:active, .btn:active {
   .content-area { max-width: 100%; }
 }
 @media (max-width: 600px) {
-  .header-bar { padding: 0 var(--space-4); }
   .main-container { padding: var(--space-4); }
   .card { padding: 20px; }
   .radio-group { gap: 8px; }
@@ -391,9 +351,6 @@ button:active, .btn:active {
   .piece-dim-label { width: 65px; }
   .piece-dim-expected { width: 40px; font-size: 0.8em; }
 }
-
-/* ── Template alignment (header title link + footer) ── */
-.header-title-link { text-decoration: none; color: inherit; }
 .info-footer {
   text-align: center;
   padding: 24px 24px 28px;
@@ -521,9 +478,6 @@ button:active, .btn:active {
   .help-trigger, .timestamp-btn, .timer-section, .reset-button,
   .sidebar-buttons, .info-footer, .sessions-overlay, .help-overlay,
   .skip-link, .piece-auto-label a { display: none !important; }
-
-  .header-bar { background: none; border-bottom: 1px solid #ccc; position: static; }
-  .header-logo h1, .header-subtitle { color: #000; }
   .main-container { display: block; max-width: 100%; padding: 0; }
   .content-area { max-width: 100%; }
   .card { background: #fff; border: 1px solid #ddd; color: #000; break-inside: avoid; margin-bottom: 16px; page-break-inside: avoid; }
