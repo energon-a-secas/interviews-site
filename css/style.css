@@ -11,8 +11,8 @@
   --text-primary: #f9f9f9;
   --text-secondary: #cacaca;
   --text-muted: rgba(255,255,255,.55);
-  --accent: #0063e5;
-  --accent-bright: #0080ff;
+  --accent: #38bdf8;
+  --accent-bright: #7dd3fc;
   --font: 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   --text-xs: 0.75rem; --text-sm: 0.875rem; --text-base: 1rem;
   --text-lg: 1.125rem; --text-xl: 1.25rem; --text-2xl: 1.5rem;
@@ -284,22 +284,6 @@ button:active, .btn:active {
 .cheat-indicator-value.risk-high   { color: #f87171; }
 
 /* ── Footer ───────────────────────────────────────────────────────── */
-.info-footer {
-  text-align: center; padding: 20px var(--space-6) 28px;
-  color: var(--text-muted); font-size: .78em; line-height: 1.8;
-  border-top: 1px solid var(--border-subtle);
-  margin-top: 48px;
-}
-.footer-link {
-  color: var(--text-muted);
-  text-decoration: none;
-  transition: color var(--dur);
-}
-.footer-link:hover,
-.footer-link:focus-visible {
-  color: var(--text-secondary);
-  text-decoration: underline;
-}
 
 /* ── Focus styles ─────────────────────────────────────────────────── */
 :focus-visible {
@@ -350,25 +334,6 @@ button:active, .btn:active {
   .piece-icon { font-size: 1.6em; }
   .piece-dim-label { width: 65px; }
   .piece-dim-expected { width: 40px; font-size: 0.8em; }
-}
-.info-footer {
-  text-align: center;
-  padding: 24px 24px 28px;
-  color: rgba(255,255,255,.45);
-  font-size: .78em;
-  line-height: 1.8;
-  border-top: 1px solid rgba(255,255,255,.08);
-  margin-top: 32px;
-}
-.footer-link {
-  color: rgba(255,255,255,.45);
-  text-decoration: none;
-  transition: color 200ms;
-}
-.footer-link:hover,
-.footer-link:focus-visible {
-  color: rgba(255,255,255,.72);
-  text-decoration: underline;
 }
 
 /* ── Sessions UI ──────────────────────────────────────────────────── */
@@ -476,7 +441,7 @@ button:active, .btn:active {
   body { background: #fff; color: #000; }
   .header-bar nav, .header-home, .score-sidebar, .session-actions,
   .help-trigger, .timestamp-btn, .timer-section, .reset-button,
-  .sidebar-buttons, .info-footer, .sessions-overlay, .help-overlay,
+  .sidebar-buttons, .neo-footer, .sessions-overlay, .help-overlay,
   .skip-link, .piece-auto-label a { display: none !important; }
   .main-container { display: block; max-width: 100%; padding: 0; }
   .content-area { max-width: 100%; }

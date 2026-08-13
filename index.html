@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-Frame-Options" content="DENY">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://cdn.neorgon.org; frame-ancestors 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdn.neorgon.org; img-src 'self' data: blob: https://cdn.neorgon.org">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -37,6 +36,8 @@
   <link rel="stylesheet" href="css/neorgon-themes.css">
   <link rel="stylesheet" href="https://cdn.neorgon.org/v1.0.0/header/season.css">
   <script defer src="js/neorgon-header.js"></script>
+  <link rel="stylesheet" href="css/neorgon-footer.css">
+  <script defer src="js/neorgon-footer.js"></script>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBYF22LDTN"></script>
@@ -762,10 +763,8 @@
     </div>
   </div>
 
-  <footer class="info-footer">
-    Behavioral interview scorecard with Core Five archetype matching
-    <br><span class="keyboard-hint">Keyboard: 1 / 2 / 3 to rate, ? for help, / to focus name</span>
-    <br>Part of <a class="footer-link" href="https://neorgon.com/" target="_blank" rel="noopener noreferrer">Neorgon</a>
+  <footer class="neo-footer" data-footer-mode="minimal">
+    Behavioral interview scorecard with Core Five archetype matching Keyboard: 1 / 2 / 3 to rate, ? for help, / to focus name
   </footer>
 
   <script type="module" src="js/app.js"></script>
