@@ -60,7 +60,7 @@ export const HELP_CONTENT = {
     ],
     lookFor: [
       'Uses clear, direct sentences without unnecessary jargon',
-      'Gets to the point — doesn\'t take 5 minutes for a 30-second answer',
+      'Gets to the point: doesn\'t take 5 minutes for a 30-second answer',
       'When they do use technical terms, they explain them naturally'
     ]
   },
@@ -97,7 +97,7 @@ export const HELP_CONTENT = {
     objective: 'Inconsistencies can indicate inflated or fabricated experience. A real story stays the same because it actually happened.',
     ask: [
       'Ask about the same project at two different points in the conversation',
-      '"Earlier you mentioned [X] — tell me more about that timeline"',
+      '"Earlier you mentioned [X]: tell me more about that timeline"',
       '"How long were you in that role? What was the team size?"'
     ],
     lookFor: [
@@ -108,9 +108,9 @@ export const HELP_CONTENT = {
   },
   'story-2': {
     title: 'Multi-Angle Consistency',
-    objective: 'Real experience creates a 3D picture you can examine from any angle. Fabricated stories are flat — they only work from one direction.',
+    objective: 'Real experience creates a 3D picture you can examine from any angle. Fabricated stories are flat. They only work from one direction.',
     ask: [
-      '"You mentioned [X] — how does that connect to [Y] you said earlier?"',
+      '"You mentioned [X]: how does that connect to [Y] you said earlier?"',
       '"Who else was involved in that? What was their role?"',
       'Rephrase a previous question differently and compare answers'
     ],
@@ -122,7 +122,7 @@ export const HELP_CONTENT = {
   },
   'story-3': {
     title: 'Concrete Examples on Demand',
-    objective: 'Real experience comes with specifics. Vague answers usually mean vague experience — or someone else\'s experience.',
+    objective: 'Real experience comes with specifics. Vague answers usually mean vague experience, or someone else\'s experience.',
     ask: [
       '"Give me a concrete example of when you did that"',
       '"What exactly did you do? What was the outcome?"',
@@ -168,7 +168,7 @@ export const HELP_CONTENT = {
     ask: [
       '"What would happen if [unexpected scenario]?"',
       '"How about [edge case they didn\'t mention]?"',
-      '"What if [constraint] was different — how would that change your approach?"'
+      '"What if [constraint] was different: how would that change your approach?"'
     ],
     lookFor: [
       'Thinks through the problem instead of panicking',
@@ -192,7 +192,7 @@ export const HELP_CONTENT = {
   },
   'own-2': {
     title: 'Ownership Under Scrutiny',
-    objective: 'Inflated claims collapse under scrutiny. Real ownership doesn\'t — because it actually happened that way.',
+    objective: 'Inflated claims collapse under scrutiny. Real ownership doesn\'t, because it actually happened that way.',
     ask: [
       '"Walk me through the implementation step by step"',
       '"Who made the final call on [X]? Why?"',
@@ -228,20 +228,20 @@ export const HELP_CONTENT = {
     ],
     lookFor: [
       'Says "I don\'t know" honestly, then attempts to reason through it',
-      'Doesn\'t bluff or make things up — that\'s worse than not knowing',
+      'Doesn\'t bluff or make things up: that\'s worse than not knowing',
       'Connects to what they DO know to make educated guesses'
     ]
   },
   'solve-2': {
     title: 'Real-Time Reasoning',
-    objective: 'Troubleshooting and architecture require on-the-spot thinking. This can\'t be pre-rehearsed — it shows how they actually work.',
+    objective: 'Troubleshooting and architecture require on-the-spot thinking. This can\'t be pre-rehearsed. It shows how they actually work.',
     ask: [
-      '"Imagine [scenario] — what\'s the first thing you\'d check?"',
+      '"Imagine [scenario]: what\'s the first thing you\'d check?"',
       '"How would you debug [X] if you had no documentation?"',
       '"A service is down in production. Walk me through your process."'
     ],
     lookFor: [
-      'Systematic approach — doesn\'t just guess randomly',
+      'Systematic approach: doesn\'t just guess randomly',
       'Asks clarifying questions before diving in',
       'Thinks aloud so you can follow their reasoning'
     ]
@@ -251,7 +251,7 @@ export const HELP_CONTENT = {
     objective: 'Client work involves pressure and tight deadlines. You need someone who leans in, not someone who checks out.',
     ask: [
       'Push back on one of their answers. Play devil\'s advocate.',
-      '"I disagree — why not [alternative approach]?"',
+      '"I disagree: why not [alternative approach]?"',
       'Increase the pace of questions slightly'
     ],
     lookFor: [
@@ -274,7 +274,7 @@ export const HELP_CONTENT = {
     title: 'Genuine Role Interest',
     objective: 'Engaged candidates become engaged employees. People who are just looking for any job act differently from people who want THIS job.',
     ask: [
-      'Wait for them to ask YOU questions — do they?',
+      'Wait for them to ask YOU questions: do they?',
       '"What attracted you to this role specifically?"',
       '"What do you want to learn in the next year?"'
     ],
@@ -290,7 +290,7 @@ export const HELP_CONTENT = {
     ask: [],
     lookFor: [
       'Answers simple questions quickly and concisely',
-      'Takes appropriate time for complex questions — thinking is fine, stalling isn\'t',
+      'Takes appropriate time for complex questions, thinking is fine, stalling isn\'t',
       'Doesn\'t ramble for 5 minutes on a question that needs 30 seconds'
     ]
   },
@@ -304,7 +304,7 @@ export const HELP_CONTENT = {
     ],
     lookFor: [
       'Can describe specific errors, gotchas, and workarounds',
-      'Remembers the frustrating parts — that\'s a sign they actually did it',
+      'Remembers the frustrating parts: that\'s a sign they actually did it',
       'Knows operational details, not just architectural overview'
     ]
   },
@@ -312,7 +312,7 @@ export const HELP_CONTENT = {
     title: 'Implementation Detail Depth',
     objective: 'Anyone can describe architecture at a high level. Implementation details reveal who actually built it.',
     ask: [
-      '"Show me how you would set that up — step by step"',
+      '"Show me how you would set that up: step by step"',
       '"What config files did you modify? What parameters?"',
       '"What monitoring did you add? How did you know it was working?"'
     ],
@@ -354,7 +354,7 @@ export const HELP_CONTENT = {
     title: 'Constraint Change Impact',
     objective: 'Take something from their own project and change a variable. If they built it, they\'ll instantly know what breaks. If they memorized it, they\'ll stall.',
     ask: [
-      '"You said you used [X]. What if the traffic was 100x — what breaks first?"',
+      '"You said you used [X]. What if the traffic was 100x, what breaks first?"',
       '"What if you couldn\'t use [the database they mentioned]? What changes?"',
       '"What happens to your pipeline if that service goes down at 2 AM?"'
     ],
@@ -375,7 +375,7 @@ export const HELP_CONTENT = {
     lookFor: [
       'Can articulate specific downsides, not just "it depends"',
       'Gives real examples of where it\'s overkill or a bad fit',
-      'Shows judgment — knows the difference between "can" and "should"'
+      'Shows judgment: knows the difference between "can" and "should"'
     ]
   },
   'solve-p4': {
@@ -384,10 +384,10 @@ export const HELP_CONTENT = {
     ask: [
       '"What if we add a message queue, a cache layer, and a separate auth service for this internal tool with 10 users?"',
       '"Should we use a multi-region active-active setup for this dev environment?"',
-      '"Let\'s add Kubernetes orchestration for these 2 containers — good idea?"'
+      '"Let\'s add Kubernetes orchestration for these 2 containers, good idea?"'
     ],
     lookFor: [
-      'Pushes back — "that\'s overkill for this use case"',
+      'Pushes back: "that\'s overkill for this use case"',
       'Proposes a simpler alternative with reasoning',
       'Doesn\'t just agree because the interviewer suggested it'
     ]
@@ -401,7 +401,7 @@ export const HELP_CONTENT = {
       '"Logs show intermittent 503s from one service. How do you narrow it down?"'
     ],
     lookFor: [
-      'Starts with data: logs, metrics, recent changes — not guessing',
+      'Starts with data: logs, metrics, recent changes, not guessing',
       'Has a structured approach: reproduce, isolate, identify, fix',
       'Asks smart questions about the system before proposing solutions'
     ]
@@ -494,9 +494,9 @@ export const HELP_CONTENT = {
 
 export const SUGGESTIONS = {
   comm: {
-    strengthInternal: 'Clear and effective communicator — client-ready',
+    strengthInternal: 'Clear and effective communicator: client-ready',
     strengthCandidate: 'You communicated your ideas clearly and effectively',
-    concernInternal: 'Difficulty articulating ideas — may struggle in client-facing interactions',
+    concernInternal: 'Difficulty articulating ideas: may struggle in client-facing interactions',
     growthCandidate: 'Practice structuring your responses more concisely',
     tipsInternal: ['Consider a prep session on communication clarity before client interviews', 'May benefit from practicing technical explanations with non-technical audiences'],
     tipsCandidate: ['Try the STAR method (Situation, Task, Action, Result) for structuring responses', 'Practice explaining your experience out loud before interviews']
@@ -504,13 +504,13 @@ export const SUGGESTIONS = {
   story: {
     strengthInternal: 'Consistent and well-prepared narrative',
     strengthCandidate: 'Your experience narrative was well-structured and consistent',
-    concernInternal: 'Inconsistencies in experience narrative — possible experience inflation',
+    concernInternal: 'Inconsistencies in experience narrative: possible experience inflation',
     growthCandidate: 'Prepare to discuss your experience from multiple perspectives',
     tipsInternal: ['Story inconsistencies suggest possible experience gaps', 'Recommend deeper reference checks on recent projects'],
     tipsCandidate: ['Review your project timeline and key milestones before your next interview', 'Prepare concrete examples with specific metrics and outcomes']
   },
   tech: {
-    strengthInternal: 'Solid technical foundation — depth matches claimed experience',
+    strengthInternal: 'Solid technical foundation: depth matches claimed experience',
     strengthCandidate: 'You demonstrated solid technical knowledge and understanding',
     concernInternal: 'Technical depth does not match claimed experience level',
     growthCandidate: 'Deepen your understanding of the tools and decisions in your background',
@@ -518,25 +518,25 @@ export const SUGGESTIONS = {
     tipsCandidate: ['Focus on the "why" behind your technical choices, not just the "what"', 'Consider hands-on labs or side projects to strengthen practical knowledge']
   },
   own: {
-    strengthInternal: 'Clear accountability — can articulate personal contributions precisely',
+    strengthInternal: 'Clear accountability: can articulate personal contributions precisely',
     strengthCandidate: 'You clearly articulated your personal contributions and decisions',
-    concernInternal: 'Ownership claims may be inflated — verify with references',
+    concernInternal: 'Ownership claims may be inflated: verify with references',
     growthCandidate: 'Be more specific about what you personally contributed vs. team efforts',
     tipsInternal: ['Candidate may have been in a supportive rather than leading role', 'Claims of ownership did not hold up under probing'],
     tipsCandidate: ['It\'s perfectly fine to say "I contributed to X" rather than "I built X"', 'Interviewers value honesty about scope over breadth of claims']
   },
   solve: {
-    strengthInternal: 'Strong problem-solving under pressure — good troubleshooting instincts',
+    strengthInternal: 'Strong problem-solving under pressure: good troubleshooting instincts',
     strengthCandidate: 'You showed good composure and reasoning when working through challenges',
     concernInternal: 'Under-pressure performance is a concern for client-facing roles',
     growthCandidate: 'Practice working through unfamiliar problems out loud',
     tipsInternal: ['May struggle with production incidents or tight deadlines', 'Consider how this person would perform in high-pressure client scenarios'],
-    tipsCandidate: ['Remember: saying "I don\'t know, but here\'s how I\'d approach it" is a strong answer', 'Practice thinking out loud — it shows your reasoning process']
+    tipsCandidate: ['Remember: saying "I don\'t know, but here\'s how I\'d approach it" is a strong answer', 'Practice thinking out loud: it shows your reasoning process']
   },
   vibe: {
-    strengthInternal: 'Positive cultural fit — engaging personality, good energy',
+    strengthInternal: 'Positive cultural fit: engaging personality, good energy',
     strengthCandidate: 'You showed genuine enthusiasm and engagement throughout',
-    concernInternal: 'Cultural fit concerns — low engagement or apparent lack of interest',
+    concernInternal: 'Cultural fit concerns: low engagement or apparent lack of interest',
     growthCandidate: 'Show more curiosity about the role and team during conversations',
     tipsInternal: ['Low engagement could signal lack of interest in this specific opportunity', 'May not integrate well with client team dynamics'],
     tipsCandidate: ['Research the team and role beforehand to ask informed questions', 'Aim for conversational, concise answers rather than monologues']

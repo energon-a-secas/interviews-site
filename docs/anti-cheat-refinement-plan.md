@@ -1,4 +1,4 @@
-# Anti-Cheat Refinement Plan — Vibe Check
+# Anti-Cheat Refinement Plan: Vibe Check
 
 ## Goal
 Turn the scorecard into a practical interviewer aid for detecting candidates who may be using AI or coached answers during the interview itself, while keeping the existing 18-question / 36-point scoring model intact.

@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Anti-Cheat Observations** — a collapsed "AI / Coaching Tells" card with six radio-rated observations:
+- **Anti-Cheat Observations**: a collapsed "AI / Coaching Tells" card with six radio-rated observations:
   - Long pause → suddenly fluent / expert answer
   - Generic STAR or blog-post templates
   - Tone or vocabulary shifts mid-interview
@@ -20,14 +20,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dedicated **Anti-Cheat Notes** textarea inside the collapsed section for free-form interviewer observations.
 - Anti-cheat signals and notes are included in the internal review report; they remain excluded from the candidate feedback report.
 - Playwright test coverage for the anti-cheat section, risk indicator, report inclusion/exclusion, and reset behavior.
-- **Candidate Sessions** — save, load, rename, delete, import, and export assessments via `localStorage`.
+- **Candidate Sessions**: save, load, rename, delete, import, and export assessments via `localStorage`.
 - **Role selector** placeholder in the Candidate card (Individual Contributor / Tech Lead / Engineering Manager).
 - Auto-save after form edits with a visible status indicator.
 - Sessions drawer accessible from the Candidate card, plus JSON export/import.
-- **Keyboard shortcuts** — `1`/`2`/`3` to rate a focused question, `?` for help, `/` to focus the candidate name.
-- **Candidate comparison page** (`compare.html`) — side-by-side scores, verdicts, category breakdowns, piece profiles, anti-cheat risk, and notes.
-- **Interview timer** — start/pause/reset timer in the sidebar, insert `[MM:SS]` timestamps into notes, and include total duration in the internal report.
-- **Print-friendly reports** — Print Report button plus `@media print` styles for a clean printed/PDF output.
+- **Keyboard shortcuts**: `1`/`2`/`3` to rate a focused question, `?` for help, `/` to focus the candidate name.
+- **Candidate comparison page** (`compare.html`): side-by-side scores, verdicts, category breakdowns, piece profiles, anti-cheat risk, and notes.
+- **Interview timer**: start/pause/reset timer in the sidebar, insert `[MM:SS]` timestamps into notes, and include total duration in the internal report.
+- **Print-friendly reports**: Print Report button plus `@media print` styles for a clean printed/PDF output.
 - Playwright coverage for sessions, keyboard shortcuts, candidate comparison, roles, timer, and print button.
 
 ### Changed

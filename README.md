@@ -71,7 +71,7 @@ Based on practical experience from conducting and preparing people for technical
 
 | # | Question | Good (2) | Neutral (1) | Red Flag (0) | What It Measures |
 |---|----------|----------|-------------|---------------|------------------|
-| 7 | Are there technical gaps in their story? | None — depth matches claims | Some surface-level gaps | Major gaps between claims and knowledge | Resume accuracy |
+| 7 | Are there technical gaps in their story? | None: depth matches claims | Some surface-level gaps | Major gaps between claims and knowledge | Resume accuracy |
 | 8 | Do they understand the "why" behind decisions? | Explains reasoning and trade-offs | Knows what but not why | Cannot explain any reasoning | Seniority level |
 | 9 | Can they go beyond rehearsed answers? | Handles curve balls well | Partially adapts | Stuck on prepared talking points | Battle-tested vs. memorized knowledge |
 
@@ -118,7 +118,7 @@ Based on practical experience from conducting and preparing people for technical
 
 | # | Question | Good (2) | Neutral (1) | Red Flag (0) | What It Measures |
 |---|----------|----------|-------------|---------------|------------------|
-| 16 | Would you work with this person daily? | Definitely — good energy | Maybe — neutral impression | No — personality concerns | Team fit gut check |
+| 16 | Would you work with this person daily? | Definitely: good energy | Maybe, neutral impression | No, personality concerns | Team fit gut check |
 | 17 | Do they show genuine role interest? | Asks specific questions, researched | Somewhat interested | Going through the motions | Engagement predictor |
 | 18 | Is their response pace reasonable? | Concise and confident | Slow but eventually gets there | Painfully slow or rambling | Client interaction readiness |
 
@@ -143,7 +143,7 @@ Based on [The Core Five](https://minibooks.lucianoadonis.com/pages/thesis-the-co
 | Rook | High Power + Speed, low Range/Versatility | Execution-heavy roles with clear, well-defined scope |
 | Bishop | High Foresight + Insight, low Power/Speed | Architecture, planning, risk assessment |
 | Knight | High Range + Versatility, medium elsewhere | Cross-team problems, innovation, complex environments |
-| Pawn | Low across all (currently) | Juniors with promotion potential — placement determines growth |
+| Pawn | Low across all (currently) | Juniors with promotion potential, placement determines growth |
 
 The tool auto-detects the best-matching piece from scores. Interviewers can override the selection to reflect their own assessment. The piece profile is included in the internal review report.
 
@@ -255,15 +255,15 @@ interviews-site/
 
 ## Files
 
-- `index.html` — The assessment tool
-- `compare.html` — Side-by-side candidate comparison
-- `js/session.js` + `js/storage.js` — Save, load, rename, delete, import, export candidate sessions
-- `js/keyboard.js` — Keyboard shortcuts for live scoring
-- `js/timer.js` — Interview timer and timestamped notes
-- `test_scoring.py` — Python unit tests for scoring logic
-- `part-1.md` — Interview preparation and mindset
-- `part-2.md` — Interview phases and the "feeling" factor
-- `part-3.md` — Technical question reference
+- `index.html`: The assessment tool
+- `compare.html`: Side-by-side candidate comparison
+- `js/session.js` + `js/storage.js`: Save, load, rename, delete, import, export candidate sessions
+- `js/keyboard.js`: Keyboard shortcuts for live scoring
+- `js/timer.js`: Interview timer and timestamped notes
+- `test_scoring.py`: Python unit tests for scoring logic
+- `part-1.md`: Interview preparation and mindset
+- `part-2.md`: Interview phases and the "feeling" factor
+- `part-3.md`: Technical question reference
 
 ## Usage
 

@@ -1,4 +1,4 @@
-# Anti-Cheat Interview Scenarios — Vibe Check
+# Anti-Cheat Interview Scenarios: Vibe Check
 
 These scenarios show how an interviewer can use the anti-cheat observations during real interviews. Each scenario maps observable behavior to the corresponding observation control and follow-up probe.
 
@@ -76,7 +76,7 @@ Rephrase the question several times and see if the echo persists.
 ## Cluster rule of thumb
 
 - **0 red flags:** no special action.
-- **1–2 red flags:** medium risk — probe deeper with the relevant category probes (Technical, Story, Ownership).
+- **1–2 red flags:** medium risk: probe deeper with the relevant category probes (Technical, Story, Ownership).
 - **3+ red flags:** document in the internal report and consider a follow-up live interview with camera on, no screen share, and unscripted questions.
 
 ## What NOT to do
