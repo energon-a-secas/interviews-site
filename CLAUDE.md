@@ -14,7 +14,7 @@ Vibe Check is a behavioral interview scorecard that helps interviewers quantify 
 # Serve locally (ES modules require a server)
 python3 -m http.server
 
-# Run Playwright E2E tests (60 tests — spins up a local server automatically)
+# Run Playwright E2E tests (60 tests; spins up a local server automatically)
 npm test
 
 # Run Playwright tests with browser visible
