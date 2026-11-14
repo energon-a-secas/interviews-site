@@ -23,12 +23,12 @@
   <script defer src="js/neorgon-footer.js"></script>
   <style>
     .compare-main { max-width: 1200px; margin: 0 auto; padding: 30px; }
-    .compare-header { margin-bottom: 24px; }
     .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     .compare-card { background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
     .compare-card h2 { font-size: 1.25em; margin-bottom: 18px; }
     .compare-select { width: 100%; margin-bottom: 20px; }
     .compare-empty { color: var(--text-muted); text-align: center; padding: 40px; }
+    .compare-empty a { color: var(--accent-bright); }
     .compare-score { font-size: 2.5em; font-weight: 700; margin: 10px 0; }
     .compare-verdict { display: inline-block; padding: 6px 14px; border-radius: 20px; font-weight: 600; font-size: 0.9em; background: rgba(255,255,255,0.1); margin-bottom: 16px; }
     .compare-section { margin-top: 20px; }
@@ -84,11 +84,6 @@
   </header>
 
   <main class="compare-main" id="main">
-    <div class="compare-header">
-      <h2 class="section-title">Compare Candidates</h2>
-      <p class="control-description">Select two saved sessions to compare scores, verdicts, piece profiles, and anti-cheat risk side by side.</p>
-    </div>
-
     <div class="compare-grid" id="compare-grid">
       <div class="compare-card" id="left-card">
         <h2>Candidate A</h2>

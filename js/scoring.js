@@ -68,11 +68,12 @@ export function updatePieceMatrix() {
     if (p === active) cls += ' selected';
     else if (p === best && state.selectedPiece) cls += ' best-match';
     tile.className = cls;
+    tile.setAttribute('aria-pressed', String(p === state.selectedPiece));
   }
   const profile = PIECE_PROFILES[active];
   document.getElementById('piece-detail-icon').textContent = profile.icon;
   document.getElementById('piece-detail-name').textContent = profile.name;
-  document.getElementById('piece-detail-tag').textContent = (state.selectedPiece ? 'Manual' : 'Best Match') + ' \u2014 ' + matches[active] + '%';
+  document.getElementById('piece-detail-tag').textContent = (state.selectedPiece ? 'Manual' : 'Best Match') + ' \u00b7 ' + matches[active] + '%';
   document.getElementById('piece-detail-desc').textContent = profile.desc;
   let dimsHtml = '';
   DIMENSION_ORDER.forEach(dim => {

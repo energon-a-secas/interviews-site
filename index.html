@@ -12,15 +12,15 @@
   <meta name="neo-mark" content="on">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Vibe Check | Behavioral Interview Aid</title>
-  <meta name="description" content="Score candidates across 18 behavioral questions in 6 categories. Auto-detect team archetypes with the Core Five. Download markdown reports">
+  <meta name="description" content="Score candidates on behavioral questions, category by category. Auto-detect team archetypes with the Core Five. Download markdown reports">
   <meta property="og:title" content="Vibe Check: Behavioral Interview Scorecard">
-  <meta property="og:description" content="Score candidates across 18 behavioral questions in 6 categories. Auto-detect team archetypes, download markdown reports">
+  <meta property="og:description" content="Score candidates on behavioral questions, category by category. Auto-detect team archetypes, download markdown reports">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://interviews.neorgon.com/">
   <meta property="og:site_name" content="Neorgon">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Vibe Check: Behavioral Interview Scorecard">
-  <meta name="twitter:description" content="Score candidates across 18 behavioral questions in 6 categories. Auto-detect team archetypes, download markdown reports">
+  <meta name="twitter:description" content="Score candidates on behavioral questions, category by category. Auto-detect team archetypes, download markdown reports">
   <meta name="twitter:image" content="https://interviews.neorgon.com/og-preview.jpg">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://interviews.neorgon.com/">
@@ -48,8 +48,8 @@
     "@type": "WebApplication",
     "name": "Vibe Check",
     "alternateName": "Behavioral Interview Aid",
-    "headline": "Vibe Check — Quantify the vibes you get from someone",
-    "description": "A free, browser-based behavioral interview scorecard. Rate candidates across 18 questions in 6 categories, auto-detect their team archetype with the Core Five piece profile, and generate downloadable internal review and candidate feedback reports",
+    "headline": "Vibe Check: Quantify the vibes you get from someone",
+    "description": "A free, browser-based behavioral interview scorecard. Rate candidates on communication, story consistency, technical credibility, ownership, problem-solving and vibe, auto-detect their team archetype with the Core Five piece profile, and generate downloadable internal review and candidate feedback reports",
     "url": "https://interviews.neorgon.com/",
     "applicationCategory": "BusinessApplication",
     "applicationSubCategory": "Human Resources",
@@ -64,9 +64,9 @@
       "priceCurrency": "USD"
     },
     "featureList": [
-      "18 behavioral assessment questions across 6 categories",
+      "Behavioral assessment questions grouped by category",
       "Real-time scoring with pass probability percentage",
-      "Core Five piece profile — auto-detect candidate archetype",
+      "Core Five piece profile: auto-detect candidate archetype",
       "Optional probe questions for deeper investigation",
       "Anti-cheat observations to flag AI-assisted or coached answers",
       "Downloadable internal review report (Markdown)",
@@ -635,33 +635,33 @@
       <!-- Piece Profile -->
       <div class="card" id="piece-card">
         <h2 class="section-title">Piece Profile</h2>
-        <p class="control-description" style="margin-bottom:18px">Based on the <a href="https://minibooks.lucianoadonis.com/pages/thesis-the-core-five" target="_blank" rel="noopener" style="color:var(--accent-bright)">Core Five</a> dimensions, which chess piece does this candidate resemble? Scores auto-suggest a match, click to override.</p>
+        <p class="control-description" style="margin-bottom:18px">Which <a href="https://minibooks.lucianoadonis.com/pages/thesis-the-core-five" target="_blank" rel="noopener" style="color:var(--accent-bright)">Core Five</a> piece does this candidate resemble?</p>
         <div class="piece-grid">
-          <div class="piece-tile" id="piece-queen" onclick="selectPiece('queen')">
-            <div class="piece-icon">&#9819;</div>
-            <div class="piece-tile-name">Queen</div>
-            <div class="piece-tile-pct" id="pct-queen">-</div>
-          </div>
-          <div class="piece-tile" id="piece-rook" onclick="selectPiece('rook')">
-            <div class="piece-icon">&#9820;</div>
-            <div class="piece-tile-name">Rook</div>
-            <div class="piece-tile-pct" id="pct-rook">-</div>
-          </div>
-          <div class="piece-tile" id="piece-bishop" onclick="selectPiece('bishop')">
-            <div class="piece-icon">&#9821;</div>
-            <div class="piece-tile-name">Bishop</div>
-            <div class="piece-tile-pct" id="pct-bishop">-</div>
-          </div>
-          <div class="piece-tile" id="piece-knight" onclick="selectPiece('knight')">
-            <div class="piece-icon">&#9822;</div>
-            <div class="piece-tile-name">Knight</div>
-            <div class="piece-tile-pct" id="pct-knight">-</div>
-          </div>
-          <div class="piece-tile" id="piece-pawn" onclick="selectPiece('pawn')">
-            <div class="piece-icon">&#9823;</div>
-            <div class="piece-tile-name">Pawn</div>
-            <div class="piece-tile-pct" id="pct-pawn">-</div>
-          </div>
+          <button type="button" class="piece-tile" id="piece-queen" data-piece="queen" aria-pressed="false">
+            <span class="piece-icon" aria-hidden="true">&#9819;</span>
+            <span class="piece-tile-name">Queen</span>
+            <span class="piece-tile-pct" id="pct-queen">-</span>
+          </button>
+          <button type="button" class="piece-tile" id="piece-rook" data-piece="rook" aria-pressed="false">
+            <span class="piece-icon" aria-hidden="true">&#9820;</span>
+            <span class="piece-tile-name">Rook</span>
+            <span class="piece-tile-pct" id="pct-rook">-</span>
+          </button>
+          <button type="button" class="piece-tile" id="piece-bishop" data-piece="bishop" aria-pressed="false">
+            <span class="piece-icon" aria-hidden="true">&#9821;</span>
+            <span class="piece-tile-name">Bishop</span>
+            <span class="piece-tile-pct" id="pct-bishop">-</span>
+          </button>
+          <button type="button" class="piece-tile" id="piece-knight" data-piece="knight" aria-pressed="false">
+            <span class="piece-icon" aria-hidden="true">&#9822;</span>
+            <span class="piece-tile-name">Knight</span>
+            <span class="piece-tile-pct" id="pct-knight">-</span>
+          </button>
+          <button type="button" class="piece-tile" id="piece-pawn" data-piece="pawn" aria-pressed="false">
+            <span class="piece-icon" aria-hidden="true">&#9823;</span>
+            <span class="piece-tile-name">Pawn</span>
+            <span class="piece-tile-pct" id="pct-pawn">-</span>
+          </button>
         </div>
         <div class="piece-detail" id="piece-detail">
           <div class="piece-detail-header">
@@ -764,7 +764,7 @@
   </div>
 
   <footer class="neo-footer" data-footer-mode="minimal">
-    Behavioral interview scorecard with Core Five archetype matching Keyboard: 1 / 2 / 3 to rate, ? for help, / to focus name
+    <span class="footer-keys">Keyboard: <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> rate the focused question, <kbd>?</kbd> opens its guide, <kbd>/</kbd> jumps to the name</span>
   </footer>
 
   <script type="module" src="js/app.js"></script>

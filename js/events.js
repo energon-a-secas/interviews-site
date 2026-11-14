@@ -315,6 +315,10 @@ function advanceToNext(radioName, questionOrder, cards) {
 export function initEvents() {
   const { questionOrder, cards } = buildQuestionOrder();
 
+  document.querySelectorAll('.piece-tile[data-piece]').forEach(tile => {
+    tile.addEventListener('click', () => selectPiece(tile.dataset.piece));
+  });
+
   const allRadioNames = getAllQuestionNames();
   allRadioNames.forEach(name => {
     document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {

@@ -226,7 +226,9 @@ nav a.outline:hover { background: #11151f; }
   background: var(--surface-1); border: 2px solid var(--border);
   border-radius: 12px; padding: 16px 8px; text-align: center;
   cursor: pointer; transition: all 0.3s ease;
+  width: 100%; font: inherit; color: inherit;
 }
+.piece-tile > span { display: block; }
 .piece-tile:hover { border-color: rgba(255,255,255,0.25); background: var(--surface-2); }
 .piece-tile.best-match { border-color: rgba(0,99,229,0.35); background: rgba(0,99,229,0.05); }
 .piece-tile.selected { border-color: var(--accent); background: rgba(0,99,229,0.15); box-shadow: 0 0 20px rgba(0,99,229,0.2); }
@@ -284,6 +286,11 @@ button:active, .btn:active {
 .cheat-indicator-value.risk-high   { color: #f87171; }
 
 /* ── Footer ───────────────────────────────────────────────────────── */
+.footer-keys kbd {
+  display: inline-block; min-width: 1.6em; padding: 0 5px; border: 1px solid currentColor;
+  border-radius: 4px; font: inherit; line-height: 1.5; text-align: center;
+}
+@media (pointer: coarse) { .footer-keys { display: none; } }
 
 /* ── Focus styles ─────────────────────────────────────────────────── */
 :focus-visible {
@@ -318,7 +325,7 @@ button:active, .btn:active {
 
 /* ── Responsive ───────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .main-container { flex-direction: column-reverse; }
+  .main-container { flex-direction: column; }
   .score-sidebar { position: relative; top: 0; width: 100%; max-width: 400px; margin: 0 auto; }
   .content-area { max-width: 100%; }
 }
